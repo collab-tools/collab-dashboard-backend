@@ -1,0 +1,16 @@
+{
+  "app_database": {
+    "username": "",
+    "password": ""
+  },
+  "logging_database": {
+    "username": "",
+    "password": ""
+  },
+  "jwt_secret": "",
+  "developer_key": "",
+  "github": {
+    "client_id": "",
+    "client_secret": ""
+  }
+}

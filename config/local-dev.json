@@ -1,0 +1,19 @@
+{
+  "database": {
+    "username": "root",
+    "password": "12341234"
+  },
+  "logging_database": {
+    "username": "root",
+    "password": "12341234"
+  },
+  "authentication": {
+    "privateKey": "12341234"
+  },
+  "github": {
+    "client_secret": ""
+  },
+  "google": {
+    "client_secret": "uXl3k4jApfY2Qp-7P0rzUDxL"
+  }
+}
