@@ -52,12 +52,6 @@ exports.getMilestonesCount = function (req, res) {
   });
 }
 
-/*
-  PARAMS
-  startDate: YYYY-MM-DD (e.g 2011-09-14)
-  endDate: YYYY-MM-DD (e.g 2011-09-14)
-  maxUsers INT
-*/
 exports.getNumUsersCreatedBetweenDates = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
