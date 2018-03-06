@@ -44,7 +44,7 @@ passport.use('jwt-login', new JwtStrategy(jwtStrategyOptions,
   function(jwt_payload, done_callback) {
     const user = {
       username: jwt_payload.username
-    ;
+    }
     if (!jwt_payload) {
       return done_callback (null, false);
     }
@@ -68,7 +68,7 @@ passport.deserializeUser(function(user, done) {
 exports.login = function(req, res, next) {
   //Injected user object by auth
   const user = req.headers.user;
-  console.log('user = ' + JSON.stringify(user));
+  console.log('Login Request = ' + JSON.stringify(user));
   const strippedUser = {
     username: user.username
   };
