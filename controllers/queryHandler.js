@@ -103,7 +103,7 @@ exports.getTotalMinusNumUsersUpdatedBetweenDates = function (req, res) {
   });
 };
 
-exports.getRetentionRate = function (req, res) {
+exports.getUsersRetentionRate = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
 
@@ -182,6 +182,31 @@ exports.getLatestProjects = function (req, res) {
   sequelize.query(query, selectClause)
     .then((result) => {
       res.send(result);
+  })
+  .catch(function (err) {
+    res.status(400).send('Error ' + err);
+  });
+};
+
+//Not very accurate as we determine 'active' via updated_at
+exports.getProjectsActiveRateBetweenDates = function (req, res) {
+  const startDate = req.body.startDate;
+  const endDate = req.body.endDate;
+
+  const totalQuery = 'SELECT COUNT(*) as count FROM projects ';
+  const activeQuery = 'SELECT COUNT(*) as count FROM projects '
+  + 'WHERE updated_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + ';';
+
+  sequelize.query(totalQuery, selectClause)
+    .then((resultsTotal) => {
+      sequelize.query(activeQuery, selectClause)
+        .then((resultsActive) => {
+          let totalCount = resultsTotal[0].count;
+          let activeCount = resultsActive[0].count;
+          let rate = activeCount / totalCount;
+          res.send({"rate": rate});
+      });
   })
   .catch(function (err) {
     res.status(400).send('Error ' + err);

@@ -59,7 +59,7 @@ app.route('/users/num-not-updated-between-dates')
   startDate: YYYY-MM-DD (e.g 2011-09-14)
   endDate: YYYY-MM-DD (e.g 2011-09-14)  */
 app.route('/users/retention-rate')
-    .post(queryHandler.getRetentionRate);
+    .post(queryHandler.getUsersRetentionRate);
 
 /*  PARAMS
   maxUsers: INTEGER */
@@ -82,5 +82,12 @@ app.route('/projects/count')
   maxProjects: INTEGER */
 app.route('/projects/latest')
     .post(queryHandler.getLatestProjects);
+
+/*  PARAMS
+  startDate: YYYY-MM-DD (e.g 2011-09-14)
+  endDate: YYYY-MM-DD (e.g 2011-09-14)  */
+app.route('/projects/active-rate-between-dates')
+    .post(queryHandler.getProjectsActiveRateBetweenDates);
+
 
 app.listen(3001)
