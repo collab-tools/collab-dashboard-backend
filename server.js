@@ -5,8 +5,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
-const queryHandler = require('./controllers/queryHandler');
 const authController = require('./controllers/auth');
+const usersController = require('./controllers/users');
+const projectsController = require('./controllers/projects');
+const milestonesController = require('./controllers/milestones');
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,60 +36,60 @@ app.route('/login')
 User Routes
 *******************************/
 app.route('/users/count')
-    .get(authController.jwtAuthenticated, queryHandler.getUsersCount);
+    .get(authController.jwtAuthenticated, usersController.getUsersCount);
 
 
 /*  PARAMS
   startDate: YYYY-MM-DD (e.g 2011-09-14)
   endDate: YYYY-MM-DD (e.g 2011-09-14)  */
 app.route('/users/num-created-between-dates')
-    .post(queryHandler.getNumUsersCreatedBetweenDates);
+    .post(usersController.getNumUsersCreatedBetweenDates);
 
 /*  PARAMS
   startDate: YYYY-MM-DD (e.g 2011-09-14)
   endDate: YYYY-MM-DD (e.g 2011-09-14)  */
 app.route('/users/num-updated-between-dates')
-    .post(queryHandler.getNumUsersUpdatedBetweenDates);
+    .post(usersController.getNumUsersUpdatedBetweenDates);
 
 /*  PARAMS
   startDate: YYYY-MM-DD (e.g 2011-09-14)
   endDate: YYYY-MM-DD (e.g 2011-09-14)  */
 app.route('/users/num-not-updated-between-dates')
-    .post(queryHandler.getTotalMinusNumUsersUpdatedBetweenDates);
+    .post(usersController.getTotalMinusNumUsersUpdatedBetweenDates);
 
 /*  PARAMS
   startDate: YYYY-MM-DD (e.g 2011-09-14)
   endDate: YYYY-MM-DD (e.g 2011-09-14)  */
 app.route('/users/retention-rate')
-    .post(queryHandler.getUsersRetentionRate);
+    .post(usersController.getUsersRetentionRate);
 
 /*  PARAMS
   maxUsers: INTEGER */
 app.route('/users/latest')
-    .post(queryHandler.getLatestUsers);
+    .post(usersController.getLatestUsers);
 
 /******************************
 Milestone Routes
 *******************************/
 app.route('/milestones/count')
-    .get(queryHandler.getMilestonesCount);
+    .get(milestonesController.getMilestonesCount);
 
 /******************************
 Projects Routes
 *******************************/
 app.route('/projects/count')
-    .get(queryHandler.getProjectsCount);
+    .get(projectsController.getProjectsCount);
 
 /*  PARAMS
   maxProjects: INTEGER */
 app.route('/projects/latest')
-    .post(queryHandler.getLatestProjects);
+    .post(projectsController.getLatestProjects);
 
 /*  PARAMS
   startDate: YYYY-MM-DD (e.g 2011-09-14)
   endDate: YYYY-MM-DD (e.g 2011-09-14)  */
 app.route('/projects/active-rate-between-dates')
-    .post(queryHandler.getProjectsActiveRateBetweenDates);
+    .post(projectsController.getProjectsActiveRateBetweenDates);
 
 
 app.listen(3001)
