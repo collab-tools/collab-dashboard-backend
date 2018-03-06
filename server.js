@@ -74,6 +74,9 @@ Milestone Routes
 app.route('/milestones/count')
     .get(milestonesController.getMilestonesCount);
 
+app.route('/milestones/completed-count')
+    .get(milestonesController.getCompletedMilestonesCount);
+
 /******************************
 Projects Routes
 *******************************/
