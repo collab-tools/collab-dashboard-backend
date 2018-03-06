@@ -86,6 +86,50 @@ exports.getNumUsersUpdatedBetweenDates = function (req, res) {
   });
 };
 
+exports.getTotalMinusNumUsersUpdatedBetweenDates = function (req, res) {
+  const startDate = req.body.startDate;
+  const endDate = req.body.endDate;
+
+  const datedUsersQuery = 'SELECT COUNT (*) as count FROM users '
+  + 'WHERE NOT updated_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + ';';
+
+  sequelize.query(datedUsersQuery, selectClause)
+    .then((users) => {
+      res.send(users[0]);
+  })
+  .catch(function (err) {
+    res.status(400).send('Error ' + err);
+  });
+};
+
+exports.getRetentionRate = function (req, res) {
+  const startDate = req.body.startDate;
+  const endDate = req.body.endDate;
+
+  const totalUsersQuery = 'SELECT COUNT (*) as count FROM users';
+  const datedUsersQuery = 'SELECT COUNT (*) as count FROM users '
+  + 'WHERE updated_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + ';';
+
+  sequelize.query(totalUsersQuery, selectClause)
+    .then((total) => {
+      sequelize.query(datedUsersQuery, selectClause)
+        .then((active) => {
+          const totalCount = total[0].count;
+          const numActive = active[0].count;
+          const rate = (numActive/totalCount);
+          res.send({
+            rate: rate
+          });
+        })
+      }
+    )
+    .catch(function (err) {
+      res.status(400).send('Error ' + err);
+    });
+};
+
 exports.getLatestUsers = function (req, res) {
   let maxUsers = req.body.maxUsers;
   if (!maxUsers) maxUsers = 10;
