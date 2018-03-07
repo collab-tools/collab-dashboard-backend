@@ -3,12 +3,13 @@ console.log('Collab Dashboard Backend Starting V0.1');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const passport = require('passport');
 
 const authController = require('./controllers/auth');
 const usersController = require('./controllers/users');
 const projectsController = require('./controllers/projects');
 const milestonesController = require('./controllers/milestones');
+
+const passport = authController.passport;
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,13 +29,25 @@ app.get('/', function (req, res) {
   res.send('Dashboard Backend Root')
 })
 
-
+/******************************
+  Auth Routes
+********************************/
 app.route('/login')
     .post(authController.localAuthenticated, authController.login);
 
-/ ******************************
+// app.get('/auth/google',
+//   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile'] }));
+//
+// app.get('/auth/google/callback',
+//   passport.authenticate('google', { failureRedirect: '/login' }),
+//   function(req, res) {
+//     res.redirect('/');
+//   });
+
+
+/******************************
   User Routes
-******************************** /
+********************************/
 app.route('/users/count')
     .get(authController.jwtAuthenticated, usersController.getUsersCount);
 
@@ -68,9 +81,9 @@ app.route('/users/retention-rate')
 app.route('/users/latest')
     .post(usersController.getLatestUsers);
 
-/ ******************************
+/*****************************
   Milestone Routes
-******************************** /
+********************************/
 app.route('/milestones/count')
     .get(milestonesController.getMilestonesCount);
 
@@ -78,9 +91,9 @@ app.route('/milestones/completed-count')
     .get(milestonesController.getCompletedMilestonesCount);
 
 
-/ ******************************
+/******************************
   Projects Routes
-******************************** /
+********************************/
 app.route('/projects/count')
     .get(projectsController.getProjectsCount);
 
