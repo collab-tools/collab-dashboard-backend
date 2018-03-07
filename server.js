@@ -32,9 +32,9 @@ app.get('/', function (req, res) {
 app.route('/login')
     .post(authController.localAuthenticated, authController.login);
 
-/******************************
-User Routes
-*******************************/
+/ ******************************
+  User Routes
+******************************** /
 app.route('/users/count')
     .get(authController.jwtAuthenticated, usersController.getUsersCount);
 
@@ -68,18 +68,19 @@ app.route('/users/retention-rate')
 app.route('/users/latest')
     .post(usersController.getLatestUsers);
 
-/******************************
-Milestone Routes
-*******************************/
+/ ******************************
+  Milestone Routes
+******************************** /
 app.route('/milestones/count')
     .get(milestonesController.getMilestonesCount);
 
 app.route('/milestones/completed-count')
     .get(milestonesController.getCompletedMilestonesCount);
 
-/******************************
-Projects Routes
-*******************************/
+
+/ ******************************
+  Projects Routes
+******************************** /
 app.route('/projects/count')
     .get(projectsController.getProjectsCount);
 
