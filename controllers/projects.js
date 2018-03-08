@@ -12,6 +12,23 @@ exports.getProjectsCount = function (req, res) {
   });
 }
 
+exports.getNumProjectsCreatedBetweenDates = function (req, res) {
+  const startDate = req.body.startDate;
+  const endDate = req.body.endDate;
+
+  const datedProjectsQuery = 'SELECT COUNT (*) as count FROM projects '
+  + 'WHERE created_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + ';';
+
+  sequelize.query(datedProjectsQuery, selectClause)
+    .then((projects) => {
+      res.send(projects[0]);
+  })
+  .catch(function (err) {
+    res.status(400).send('Error ' + err);
+  });
+};
+
 exports.getLatestProjects = function (req, res) {
   let maxProjects = req.body.maxProjects;
   if (!maxProjects) maxProjects = 10;

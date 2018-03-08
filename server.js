@@ -100,6 +100,12 @@ app.route('/projects/count')
     .get(projectsController.getProjectsCount);
 
 /*  PARAMS
+  startDate: YYYY-MM-DD (e.g 2011-09-14)
+  endDate: YYYY-MM-DD (e.g 2011-09-14)  */
+app.route('/projects/num-created-between-dates')
+    .post(projectsController.getNumProjectsCreatedBetweenDates);
+
+/*  PARAMS
   maxProjects: INTEGER */
 app.route('/projects/latest')
     .post(projectsController.getLatestProjects);
@@ -109,6 +115,5 @@ app.route('/projects/latest')
   endDate: YYYY-MM-DD (e.g 2011-09-14)  */
 app.route('/projects/active-rate-between-dates')
     .post(projectsController.getProjectsActiveRateBetweenDates);
-
 
 app.listen(3001)
