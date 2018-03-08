@@ -27,6 +27,7 @@ passport.use('local-login', new LocalStrategy({
     passReqToCallback : true // allows us to pass back the entire request to the callback
   },
   function(req, usernameOrEmail, password, callback) { // callback with username and password from our form
+    console.log('received ' + usernameOrEmail + ' ' + password);
     if (usernameOrEmail === 'rebekah' && password === 'password') {
       // Success
       const user = {

@@ -12,8 +12,10 @@ const milestonesController = require('./controllers/milestones');
 const passport = authController.passport;
 
 var app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({ type: 'application/*+json' }));
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(bodyParser.json()) // handle json data
+app.use(bodyParser.urlencoded({ extended: true })) // handle URL-encoded data
 
 //Passport middleware
 app.use(require('serve-static')(__dirname + '/../../public'));
