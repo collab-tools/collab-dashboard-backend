@@ -111,7 +111,7 @@ app.route('/milestones/feature-utilization')
   Projects Routes
 ********************************/
 app.route('/projects/count')
-    .get(projectsController.getProjectsCount);
+    .post(projectsController.getProjectsCount);
 
 /*  PARAMS
   startDate: YYYY-MM-DD (e.g 2011-09-14)
