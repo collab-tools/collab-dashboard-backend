@@ -87,11 +87,25 @@ app.route('/users/latest')
   Milestone Routes
 ********************************/
 app.route('/milestones/count')
-    .get(milestonesController.getMilestonesCount);
+    .post(milestonesController.getMilestonesCount);
 
 app.route('/milestones/completed-count')
-    .get(milestonesController.getCompletedMilestonesCount);
+    .post(milestonesController.getCompletedMilestonesCount);
 
+app.route('/milestones/average-milestones-per-project')
+    .post(milestonesController.getAverageMilestonesPerProject);
+
+app.route('/milestones/average-tasks-per-milestone')
+    .post(milestonesController.getAverageTasksPerMilestone);
+
+app.route('/milestones/time-taken-data')
+    .post(milestonesController.getTimeTakenData);
+
+app.route('/milestones/ratio-deadlines-missed')
+    .post(milestonesController.getRatioDeadlinesMissed);
+
+app.route('/milestones/feature-utilization')
+    .post(milestonesController.getFeatureUtilization);
 
 /******************************
   Projects Routes
