@@ -8,6 +8,8 @@ const authController = require('./controllers/auth');
 const usersController = require('./controllers/users');
 const projectsController = require('./controllers/projects');
 const milestonesController = require('./controllers/milestones');
+const tasksController = require('./controllers/tasks');
+const messagesController = require('./controllers/messages');
 
 const passport = authController.passport;
 
@@ -55,26 +57,26 @@ app.route('/users/count')
 
 
 /*  PARAMS
-  startDate: YYYY-MM-DD (e.g 2011-09-14)
-  endDate: YYYY-MM-DD (e.g 2011-09-14)  */
+  startDate: YYYY/MM/DD (e.g 2017/09/03)
+  endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 app.route('/users/num-created-between-dates')
     .post(usersController.getNumUsersCreatedBetweenDates);
 
 /*  PARAMS
-  startDate: YYYY-MM-DD (e.g 2011-09-14)
-  endDate: YYYY-MM-DD (e.g 2011-09-14)  */
+  startDate: YYYY/MM/DD (e.g 2017/09/03)
+  endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 app.route('/users/num-updated-between-dates')
     .post(usersController.getNumUsersUpdatedBetweenDates);
 
 /*  PARAMS
-  startDate: YYYY-MM-DD (e.g 2011-09-14)
-  endDate: YYYY-MM-DD (e.g 2011-09-14)  */
+  startDate: YYYY/MM/DD (e.g 2017/09/03)
+  endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 app.route('/users/num-not-updated-between-dates')
     .post(usersController.getTotalMinusNumUsersUpdatedBetweenDates);
 
 /*  PARAMS
-  startDate: YYYY-MM-DD (e.g 2011-09-14)
-  endDate: YYYY-MM-DD (e.g 2011-09-14)  */
+  startDate: YYYY/MM/DD (e.g 2017/09/03)
+  endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 app.route('/users/retention-rate')
     .post(usersController.getUsersRetentionRate);
 
@@ -114,8 +116,8 @@ app.route('/projects/count')
     .post(projectsController.getProjectsCount);
 
 /*  PARAMS
-  startDate: YYYY-MM-DD (e.g 2011-09-14)
-  endDate: YYYY-MM-DD (e.g 2011-09-14)  */
+  startDate: YYYY/MM/DD (e.g 2017/09/03)
+  endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 app.route('/projects/num-created-between-dates')
     .post(projectsController.getNumProjectsCreatedBetweenDates);
 
@@ -125,9 +127,33 @@ app.route('/projects/latest')
     .post(projectsController.getLatestProjects);
 
 /*  PARAMS
-  startDate: YYYY-MM-DD (e.g 2011-09-14)
-  endDate: YYYY-MM-DD (e.g 2011-09-14)  */
+  startDate: YYYY/MM/DD (e.g 2017/09/03)
+  endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 app.route('/projects/active-rate-between-dates')
     .post(projectsController.getProjectsActiveRateBetweenDates);
+
+/******************************
+  Tasks Routes
+********************************/
+app.route('/tasks/count')
+    .post(tasksController.getTasksCount);
+
+app.route('/tasks/count-pending')
+    .post(tasksController.getTasksPending);
+
+app.route('/tasks/count-completed')
+    .post(tasksController.getTasksCompleted);
+
+app.route('/tasks/complete-time-data')
+    .post(tasksController.getCompleteTimeData);
+
+app.route('/tasks/feature-utilization')
+    .post(tasksController.getFeatureUtilization);
+
+/******************************
+  Messages Routes
+********************************/
+app.route('/messages/count')
+    .post(messagesController.getMessagesCount);
 
 app.listen(3001)
