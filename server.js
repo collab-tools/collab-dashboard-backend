@@ -51,7 +51,7 @@ app.route('/login')
   User Routes
 ********************************/
 app.route('/users/count')
-    .get(authController.jwtAuthenticated, usersController.getUsersCount);
+    .post(authController.jwtAuthenticated, usersController.getUsersCount);
 
 
 /*  PARAMS

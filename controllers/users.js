@@ -3,7 +3,12 @@ const selectClause = require('./sequelizeHandler').selectClause;
 console.log('Users Controller Initialized');
 
 exports.getUsersCount = function (req, res) {
-  const query = 'SELECT COUNT(*) as count FROM users;';
+  const startDate = req.body.startDate;
+  const endDate = req.body.endDate;
+
+  const query = 'SELECT COUNT(*) as count FROM users'
+  + ' WHERE created_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + ';';
   sequelize.query(query, selectClause)
   .then((result) => {
     console.log('result = ' + JSON.stringify(selectClause));
