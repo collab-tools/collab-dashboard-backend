@@ -137,6 +137,11 @@ app.route('/projects/latest')
 app.route('/projects/active-rate-between-dates')
     .post(projectsController.getProjectsActiveRateBetweenDates);
 
+/*  PARAMS
+  projectId: STRING  */
+app.route('/projects/milestones')
+    .post(projectsController.getMilestones);
+
 /******************************
   Tasks Routes
 ********************************/

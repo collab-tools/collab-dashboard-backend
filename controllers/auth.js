@@ -28,7 +28,7 @@ passport.use('local-login', new LocalStrategy({
   },
   function(req, usernameOrEmail, password, callback) { // callback with username and password from our form
     console.log('received ' + usernameOrEmail + ' ' + password);
-    if (usernameOrEmail === 'rebekah' && password === 'password') {
+    if (usernameOrEmail === 'admin' && password === 'password') {
       // Success
       const user = {
         username: usernameOrEmail
@@ -61,7 +61,7 @@ passport.use('jwt-auth', new JwtStrategy(jwtStrategyOptions,
     if (!jwt_payload) {
       return done_callback (null, false);
     }
-    if (jwt_payload.username === 'rebekah') {
+    if (jwt_payload.username === 'admin') {
       return done_callback (null, user);
     }
   }
