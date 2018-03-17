@@ -85,6 +85,11 @@ app.route('/users/retention-rate')
 app.route('/users/latest')
     .post(usersController.getLatestUsers);
 
+/*  PARAMS
+  userId: STRING */
+app.route('/users/projects')
+    .post(usersController.getProjects);
+
 /*****************************
   Milestone Routes
 ********************************/

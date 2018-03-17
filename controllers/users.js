@@ -105,7 +105,7 @@ exports.getLatestUsers = function (req, res) {
   if (!maxUsers) maxUsers = 10;
 
   const datedUsersQuery =
-  'SELECT u.display_name, u.email, u.github_login, u.created_at, GROUP_CONCAT(content) as user_projects '
+  'SELECT u.display_name, u.email, u.github_login, u.created_at, GROUP_CONCAT(content) as user_projects, u.id as user_id '
   + ' FROM users u'
   + ' JOIN user_projects up ON up.user_id = u.id'
   + ' JOIN projects p ON up.project_id = p.id'
@@ -116,6 +116,25 @@ exports.getLatestUsers = function (req, res) {
   sequelize.query(datedUsersQuery, selectClause)
     .then((datedUsers) => {
       res.send(datedUsers);
+  })
+  .catch(function (err) {
+    res.status(400).send('Error ' + err);
+  });
+};
+
+exports.getProjects = function (req, res) {
+  const userId = req.body.userId;
+  const query = 'SELECT p.content as project_name, p.id as project_id'
+  + ', SUM(CASE WHEN t.completed_on IS NOT NULL THEN 1 ELSE 0 END) as num_tasks_completed'
+  + ', SUM(CASE WHEN t.completed_on IS NULL THEN 1 ELSE 0 END) as num_tasks_incomplete'
+  + ' FROM projects p, tasks t'
+  + ' WHERE p.id = t.project_id'
+  + ' GROUP BY p.id'
+  + ';';
+
+  sequelize.query(query, selectClause)
+    .then((result) => {
+      res.send(result);
   })
   .catch(function (err) {
     res.status(400).send('Error ' + err);
