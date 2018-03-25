@@ -88,33 +88,14 @@ exports.getMilestones = function (req, res) {
   'SELECT m.content as milestone_name, m.id as milestone_id'
   + ', SUM(CASE WHEN t.completed_on IS NOT NULL THEN 1 ELSE 0 END) as num_tasks_completed'
   + ', SUM(CASE WHEN t.completed_on IS NULL THEN 1 ELSE 0 END) as num_tasks_incomplete'
-  + ', u.display_name as username, u.id as user_id'
-  + ' FROM milestones m, tasks t, users u'
+  + ' FROM milestones m, tasks t'
   + ' WHERE m.id = t.milestone_id'
-  + ' AND t.assignee_id = u.id'
   + ' AND m.project_id = \'' + projectId + '\''
-  + ' GROUP BY u.id, m.id';
+  + ' GROUP BY m.id';
 
   sequelize.query(query, selectClause)
     .then((result) => {
-      let mapping = {};
-      for (let i = 0; i < result.length; i++) {
-        let milestone_id = result[i].milestone_id;
-        if (!mapping[milestone_id]) {
-          mapping[milestone_id] = {
-            milestone_id: result[i].milestone_id,
-            milestone_name: result[i].milestone_name,
-            users: []
-          }
-        }
-        mapping[milestone_id].users.push({
-          username: result[i].username,
-          user_id: result[i].user_id,
-          num_tasks_completed: result[i].num_tasks_completed,
-          num_tasks_incomplete: result[i].num_tasks_incomplete
-        })
-      }
-      res.send(mapping);
+      res.send(result);
   })
   .catch(function (err) {
     res.status(400).send('Error ' + err);
