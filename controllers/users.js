@@ -105,7 +105,7 @@ exports.getLatestUsers = function (req, res) {
   if (!maxUsers) maxUsers = 10;
 
   const datedUsersQuery =
-  'SELECT u.display_name, u.email, u.github_login, DATE(u.created_at), GROUP_CONCAT(content) as user_projects, u.id as user_id '
+  'SELECT u.display_name, u.email, u.github_login, u.created_at, GROUP_CONCAT(content) as user_projects, u.id as user_id '
   + ' FROM users u'
   + ' JOIN user_projects up ON up.user_id = u.id'
   + ' JOIN projects p ON up.project_id = p.id'

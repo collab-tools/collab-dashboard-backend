@@ -6,7 +6,7 @@ exports.getTasksCount = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
   const query = 'SELECT COUNT(*) as count FROM tasks'
-    + ' WHERE created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
   sequelize.query(query, selectClause).then((result) => {
@@ -21,7 +21,7 @@ exports.getTasksPending = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
   const query = 'SELECT COUNT(*) as count FROM tasks'
-    + ' WHERE created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ' AND completed_on IS NULL'
     + ';';
@@ -37,7 +37,7 @@ exports.getTasksCompleted = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
   const query = 'SELECT COUNT(*) as count FROM tasks'
-    + ' WHERE created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ' AND completed_on IS NOT NULL'
     + ';';
@@ -68,11 +68,11 @@ exports.getFeatureUtilization = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
   const queryTasks = 'SELECT COUNT(*) as count FROM tasks'
-    + ' WHERE created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
   const queryProjects = 'SELECT COUNT(*) as count FROM projects'
-    + ' WHERE created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
   sequelize.query(queryTasks, selectClause).then((resTasks) => {
