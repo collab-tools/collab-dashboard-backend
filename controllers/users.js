@@ -7,7 +7,7 @@ exports.getUsersCount = function (req, res) {
   const endDate = req.body.endDate;
 
   const query = 'SELECT COUNT(*) as count FROM users'
-  + ' WHERE created_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + ' WHERE DATE(created_at) between \'' + startDate + '\' AND \'' + endDate + '\''
   + ';';
   sequelize.query(query, selectClause)
   .then((result) => {
@@ -27,7 +27,7 @@ exports.getNumUsersCreatedBetweenDates = function (req, res) {
   const endDate = req.body.endDate;
 
   const datedUsersQuery = 'SELECT COUNT (*) as count FROM users '
-  + 'WHERE created_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + 'WHERE DATE(created_at) between \'' + startDate + '\' AND \'' + endDate + '\''
   + ';';
 
   sequelize.query(datedUsersQuery, selectClause)
@@ -44,7 +44,7 @@ exports.getNumUsersUpdatedBetweenDates = function (req, res) {
   const endDate = req.body.endDate;
 
   const datedUsersQuery = 'SELECT COUNT (*) as count FROM users '
-  + 'WHERE updated_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + 'WHERE DATE(updated_at) between \'' + startDate + '\' AND \'' + endDate + '\''
   + ';';
 
   sequelize.query(datedUsersQuery, selectClause)
@@ -61,7 +61,7 @@ exports.getTotalMinusNumUsersUpdatedBetweenDates = function (req, res) {
   const endDate = req.body.endDate;
 
   const datedUsersQuery = 'SELECT COUNT (*) as count FROM users '
-  + 'WHERE NOT updated_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + 'WHERE NOT DATE(updated_at) between \'' + startDate + '\' AND \'' + endDate + '\''
   + ';';
 
   sequelize.query(datedUsersQuery, selectClause)
@@ -79,7 +79,7 @@ exports.getUsersRetentionRate = function (req, res) {
 
   const totalUsersQuery = 'SELECT COUNT (*) as count FROM users';
   const datedUsersQuery = 'SELECT COUNT (*) as count FROM users '
-  + 'WHERE updated_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + 'WHERE DATE(updated_at) between \'' + startDate + '\' AND \'' + endDate + '\''
   + ';';
 
   sequelize.query(totalUsersQuery, selectClause)
@@ -105,12 +105,12 @@ exports.getLatestUsers = function (req, res) {
   if (!maxUsers) maxUsers = 10;
 
   const datedUsersQuery =
-  'SELECT u.display_name, u.email, u.github_login, u.created_at, GROUP_CONCAT(content) as user_projects, u.id as user_id '
+  'SELECT u.display_name, u.email, u.github_login, DATE(u.created_at), GROUP_CONCAT(content) as user_projects, u.id as user_id '
   + ' FROM users u'
   + ' JOIN user_projects up ON up.user_id = u.id'
   + ' JOIN projects p ON up.project_id = p.id'
   + ' GROUP BY u.id'
-  + ' ORDER BY u.created_at DESC LIMIT ' + maxUsers
+  + ' ORDER BY DATE(u.created_at) DESC LIMIT ' + maxUsers
   + ';';
 
   sequelize.query(datedUsersQuery, selectClause)
