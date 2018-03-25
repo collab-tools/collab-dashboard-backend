@@ -124,7 +124,7 @@ exports.getLatestUsers = function (req, res) {
 
 exports.getProjects = function (req, res) {
   const userId = req.body.userId;
-  const query = 'SELECT p.content as project_name, p.id as project_id, t.*'
+  const query = 'SELECT p.content as project_name, p.id as project_id'
   //Sum count number of completed tasks
   + ', SUM(CASE WHEN t.completed_on IS NOT NULL THEN 1 ELSE 0 END) as num_tasks_completed'
   //Sum count number of incomple tasks
