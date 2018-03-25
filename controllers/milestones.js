@@ -189,29 +189,22 @@ exports.getFeatureUtilization = function (req, res) {
     + '\' AND \'' + endDate + '\''
     + ';';
 
-  const queryHasMilestones =
-    'SELECT COUNT(*) as count '
-    + ' FROM projects p '
-    + ' WHERE EXISTS '
-    + '(SELECT * FROM projects p2'
-    + ' LEFT JOIN milestones m ON'
-    + ' m.project_id = p2.id'
-    + ' GROUP BY p2.id)';
-    + ' AND DATE(p.created_at) BETWEEN \'' + startDate
+  const queryMilestones =
+    'SELECT COUNT(*) as count from milestones m'
+    + ' WHERE DATE(m.created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
+    + ' GROUP BY m.project_id'
     + ';';
 
     sequelize.query(queryTotalProjects, selectClause)
     .then((resultTotalProjects) => {
 
-        sequelize.query(queryHasMilestones, selectClause)
-        .then((resultHasMilestones) => {
-          const countHasMilestones = resultHasMilestones[0].count;
+        sequelize.query(queryMilestones, selectClause)
+        .then((resultMilestones) => {
+          const countMilestones = resultMilestones.length;
           const countTotalProjects = resultTotalProjects[0].count;
-          console.log(JSON.stringify(resultTotalProjects));
-          console.log(JSON.stringify(resultHasMilestones));
-          let featureRatio = countHasMilestones / countTotalProjects;
-          if (countHasMilestones === 0 || countTotalProjects === 0) {
+          let featureRatio = countMilestones / countTotalProjects;
+          if (countMilestones === 0 || countTotalProjects === 0) {
             featureRatio = 0;
           }
           res.send({
