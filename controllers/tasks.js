@@ -70,17 +70,18 @@ exports.getFeatureUtilization = function (req, res) {
   const queryTasks = 'SELECT COUNT(*) as count FROM tasks'
     + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
+    + ' GROUP BY milestone_id'
     + ';';
-  const queryProjects = 'SELECT COUNT(*) as count FROM projects'
+  const queryMilestones = 'SELECT COUNT(*) as count FROM milestones'
     + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
   sequelize.query(queryTasks, selectClause).then((resTasks) => {
-    sequelize.query(queryProjects, selectClause).then((resProjects) => {
-      const countTasks = resTasks[0].count;
-      const countProjects = resProjects[0].count;
-      let ratio = countTasks / countProjects;
-      if (countTasks === 0 || countProjects === 0) {
+    sequelize.query(queryMilestones, selectClause).then((resMilestones) => {
+      const countTasks = resTasks.length;
+      const countMilestones = resMilestones[0].count;
+      let ratio = countTasks / countMilestones;
+      if (countTasks === 0 || countMilestones === 0) {
         ratio = 0;
       }
       res.send({
