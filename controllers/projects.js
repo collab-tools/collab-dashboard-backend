@@ -6,7 +6,7 @@ exports.getProjectsCount = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
   const query = 'SELECT COUNT(*) as count FROM projects'
-    + ' WHERE created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
   sequelize.query(query, selectClause).then((result) => {
@@ -22,7 +22,7 @@ exports.getNumProjectsCreatedBetweenDates = function (req, res) {
   const endDate = req.body.endDate;
 
   const datedProjectsQuery = 'SELECT COUNT (*) as count FROM projects '
-  + 'WHERE created_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + 'WHERE DATE(created_at) between \'' + startDate + '\' AND \'' + endDate + '\''
   + ';';
 
   sequelize.query(datedProjectsQuery, selectClause)
@@ -44,7 +44,7 @@ exports.getLatestProjects = function (req, res) {
   + ' JOIN user_projects up ON up.project_id = p.id'
   + ' JOIN users u ON up.user_id = u.id'
   + ' GROUP BY p.id'
-  + ' ORDER BY p.created_at DESC LIMIT ' + maxProjects
+  + ' ORDER BY DATE(p.created_at) DESC LIMIT ' + maxProjects
   + ';';
 
   sequelize.query(query, selectClause)
@@ -63,7 +63,7 @@ exports.getProjectsActiveRateBetweenDates = function (req, res) {
 
   const totalQuery = 'SELECT COUNT(*) as count FROM projects ';
   const activeQuery = 'SELECT COUNT(*) as count FROM projects '
-  + 'WHERE updated_at between \'' + startDate + '\' AND \'' + endDate + '\''
+  + 'WHERE DATE(updated_at) between \'' + startDate + '\' AND \'' + endDate + '\''
   + ';';
 
   sequelize.query(totalQuery, selectClause)

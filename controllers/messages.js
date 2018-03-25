@@ -6,7 +6,7 @@ exports.getMessagesCount = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
   const query = 'SELECT COUNT(*) as count FROM messages'
-    + ' WHERE created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
   sequelize.query(query, selectClause).then((result) => {

@@ -7,7 +7,7 @@ exports.getMilestonesCount = function (req, res) {
   const endDate = req.body.endDate;
 
   const query = 'SELECT COUNT(*) as count FROM milestones'
-    + ' WHERE created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
   sequelize.query(query, selectClause)
@@ -32,7 +32,7 @@ exports.getCompletedMilestonesCount = function (req, res) {
   + ' (SELECT NULL FROM milestones m2, tasks t'
   + ' WHERE m2.id = t.milestone_id '
   + ' AND t.completed_on IS NOT NULL)'
-  + ' AND m.created_at BETWEEN \'' + startDate
+  + ' AND DATE(m.created_at) BETWEEN \'' + startDate
   + '\' AND \'' + endDate + '\''
   + ';';
   sequelize.query(query, selectClause)
@@ -53,12 +53,12 @@ exports.getAverageMilestonesPerProject = function (req, res) {
 
   const queryMilestones = 'SELECT COUNT(*) as count '
   + ' FROM milestones m '
-  + ' WHERE m.created_at BETWEEN \'' + startDate
+  + ' WHERE DATE(m.created_at) BETWEEN \'' + startDate
   + '\' AND \'' + endDate + '\''
   + ';';
   const queryProjects = 'SELECT COUNT(*) as count '
   + ' FROM projects p '
-  + ' WHERE p.created_at BETWEEN \'' + startDate
+  + ' WHERE DATE(p.created_at) BETWEEN \'' + startDate
   + '\' AND \'' + endDate + '\''
   + ';';
   sequelize.query(queryMilestones, selectClause)
@@ -91,12 +91,12 @@ exports.getAverageTasksPerMilestone = function (req, res) {
 
   const queryMilestones = 'SELECT COUNT(*) as count '
   + ' FROM milestones m '
-  + ' WHERE m.created_at BETWEEN \'' + startDate
+  + ' WHERE DATE(m.created_at) BETWEEN \'' + startDate
   + '\' AND \'' + endDate + '\''
   + ';';
   const queryTasks = 'SELECT COUNT(*) as count '
   + ' FROM tasks t '
-  + ' WHERE t.created_at BETWEEN \'' + startDate
+  + ' WHERE DATE(t.created_at) BETWEEN \'' + startDate
   + '\' AND \'' + endDate + '\''
   + ';';
   sequelize.query(queryMilestones, selectClause)
@@ -143,7 +143,7 @@ exports.getRatioDeadlinesMissed = function (req, res) {
   const endDate = req.body.endDate;
 
   const queryTotalMilestones = 'SELECT COUNT(*) as count FROM milestones'
-    + ' WHERE created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
 
@@ -155,7 +155,7 @@ exports.getRatioDeadlinesMissed = function (req, res) {
     + ' WHERE m2.id = t.milestone_id '
     + ' AND (t.completed_on IS NULL OR t.completed_on > m2.deadline)'
     + ')'
-    + ' AND m.created_at BETWEEN \'' + startDate
+    + ' AND DATE(m.created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
 
@@ -185,7 +185,7 @@ exports.getFeatureUtilization = function (req, res) {
 
   const queryTotalProjects =
     'SELECT COUNT(*) as count from projects p'
-    + ' WHERE p.created_at BETWEEN \'' + startDate
+    + ' WHERE DATE(p.created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
 
@@ -197,7 +197,7 @@ exports.getFeatureUtilization = function (req, res) {
     + ' LEFT JOIN milestones m ON'
     + ' m.project_id = p2.id'
     + ' GROUP BY p2.id)';
-    + ' AND p.created_at BETWEEN \'' + startDate
+    + ' AND DATE(p.created_at) BETWEEN \'' + startDate
     + '\' AND \'' + endDate + '\''
     + ';';
 
