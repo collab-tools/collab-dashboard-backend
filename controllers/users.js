@@ -124,11 +124,21 @@ exports.getLatestUsers = function (req, res) {
 
 exports.getProjects = function (req, res) {
   const userId = req.body.userId;
-  const query = 'SELECT p.content as project_name, p.id as project_id'
+  const query = 'SELECT p.content as project_name, p.id as project_id, t.*'
+  //Sum count number of completed tasks
   + ', SUM(CASE WHEN t.completed_on IS NOT NULL THEN 1 ELSE 0 END) as num_tasks_completed'
-  + ', SUM(CASE WHEN t.completed_on IS NULL THEN 1 ELSE 0 END) as num_tasks_incomplete'
-  + ' FROM projects p, tasks t'
-  + ' WHERE p.id = t.project_id'
+  //Sum count number of incomple tasks
+  + ', SUM(CASE WHEN t.completed_on IS NULL THEN'
+  //Since its LEFT JOIN, null values also appear, so check for them and not count
+  + ' CASE WHEN t.id IS NULL THEN 0 ELSE 1 END'
+  + ' ELSE 0 END) as num_tasks_incomplete'
+
+  + ' FROM projects p'
+  + ' INNER JOIN user_projects up ON up.project_id = p.id'
+  + ' AND up.project_id = p.id'
+  + ' AND up.user_id = \'' + userId + '\''
+
+  + ' LEFT JOIN tasks t ON t.project_id = p.id AND t.assignee_id = \'' + userId + '\''
   + ' GROUP BY p.id'
   + ';';
 
