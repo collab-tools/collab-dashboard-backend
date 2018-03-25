@@ -9,7 +9,6 @@ const usersController = require('./controllers/users');
 const projectsController = require('./controllers/projects');
 const milestonesController = require('./controllers/milestones');
 const tasksController = require('./controllers/tasks');
-const messagesController = require('./controllers/messages');
 
 const passport = authController.passport;
 
@@ -159,11 +158,5 @@ app.route('/tasks/complete-time-data')
 
 app.route('/tasks/feature-utilization')
     .post(tasksController.getFeatureUtilization);
-
-/******************************
-  Messages Routes
-********************************/
-app.route('/messages/count')
-    .post(messagesController.getMessagesCount);
 
 app.listen(3001)
