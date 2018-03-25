@@ -148,17 +148,12 @@ exports.getRatioDeadlinesMissed = function (req, res) {
     + '\' AND \'' + endDate + '\''
     + ';';
 
-  const queryMissedDeadlines = 'SELECT COUNT(*) as count '
-    + ' FROM milestones m '
-    + ' WHERE EXISTS '
-    + '('
-    + ' SELECT NULL FROM milestones m2, tasks t'
-    + ' WHERE m2.id = t.milestone_id '
-    + ' AND (t.completed_on IS NULL OR t.completed_on > m2.deadline)'
-    + ')'
-    + ' AND DATE(m.created_at) BETWEEN \'' + startDate
-    + '\' AND \'' + endDate + '\''
-    + ';';
+  const queryMissedDeadlines =
+  ' SELECT COUNT(*) as count FROM milestones m2, tasks t'
+  + ' WHERE m2.id = t.milestone_id '
+  + ' AND m2.deadline IS NOT NULL'
+  + ' AND (t.completed_on IS NULL OR t.completed_on > m2.deadline)'
+  + ';';
 
     sequelize.query(queryMissedDeadlines, selectClause)
     .then((resultMissedDeadlines) => {
