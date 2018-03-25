@@ -27,10 +27,6 @@ exports.getCompletedMilestonesCount = function (req, res) {
   const endDate = req.body.endDate;
 
   const query =
-  // 'SELECT COUNT(*) FROM milestones'
-  // 'SELECT COUNT(*) as count FROM milestones m WHERE m.id IN '
-  // + ' (SELECT m2.id FROM milestones m2 INNER JOIN tasks t ON m2.id = t.milestone_id AND t.completed_on IS NULL GROUP BY m2.id)'
-
   'SELECT (COUNT (m.id) - '
   + ' (SELECT COUNT(DISTINCT(m2.id)) FROM milestones m2 INNER JOIN tasks t ON m2.id = t.milestone_id AND t.completed_on IS NULL)'
   + ') AS count '
@@ -39,22 +35,6 @@ exports.getCompletedMilestonesCount = function (req, res) {
   + '\' AND \'' + endDate + '\''
   + ';';
 
-  // + ' GROUP BY m.id';
-  // ' (SELECT m2.*, t.* FROM milestones m2, tasks t'
-  // + ' WHERE m2.id = t.milestone_id '
-  // + ' AND t.completed_on IS  NULL GROUP BY m2.id)'
-
-  // 'SELECT m.*'
-  // + ' FROM milestones m '
-  // + ' WHERE EXISTS '
-  // + ' (SELECT NULL FROM milestones m2 INNER JOIN tasks t ON m2.id = t.milestone_id AND t.completed_on IS NULL)'
-  // + ' (SELECT m2.id FROM milestones m2, tasks t'
-  // + ' WHERE m2.id = t.milestone_id '
-  // + ' AND t.completed_on IS NOT NULL GROUP BY m2.id)'
-
-  // + ' AND DATE(m.created_at) BETWEEN \'' + startDate
-  // + '\' AND \'' + endDate + '\''
-  // + ';';
   sequelize.query(query, selectClause)
   .then((result) => {
     console.log(JSON.stringify(result))
