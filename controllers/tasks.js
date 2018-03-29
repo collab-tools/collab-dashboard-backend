@@ -52,16 +52,25 @@ exports.getTasksCompleted = function (req, res) {
 exports.getCompleteTimeData = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
-  const dummyData = {
-    data: [
-      { task_name:'task1', task_id:'1', 'time_taken': 145876  },
-      { task_name:'task1', task_id:'1', 'time_taken': 95876  },
-      { task_name:'task2', task_id:'2', 'time_taken': 245876  },
-      { task_name:'task2', task_id:'2', 'time_taken': 345876  },
-      { task_name:'task3', task_id:'3', 'time_taken': 215876  }
-    ]
-  }
-  res.send(dummyData);
+
+  const query =
+  'SELECT t.content as task_name, t.id as task_id'
+  + ', TIMESTAMPDIFF(SECOND, t.created_at, t.completed_on) as time_taken'
+  + ' FROM tasks t'
+  + ' WHERE t.completed_on IS NOT NULL'
+  + ' AND DATE(t.created_at) BETWEEN \'' + startDate
+  + '\' AND \'' + endDate + '\''
+  + ' GROUP BY t.id';
+
+  sequelize.query(query, selectClause)
+  .then((result) => {
+    res.send({
+      data: result
+    });
+  })
+  .catch(function (err) {
+    res.status(400).send('Error ' + err);
+  });
 }
 
 exports.getFeatureUtilization = function (req, res) {
