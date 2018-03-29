@@ -28,8 +28,11 @@ exports.getCompletedMilestonesCount = function (req, res) {
 
   const query =
   'SELECT (COUNT (m.id) - '
-  + ' (SELECT COUNT(DISTINCT(m2.id)) FROM milestones m2 INNER JOIN tasks t ON m2.id = t.milestone_id AND t.completed_on IS NULL)'
-  + ') AS count '
+  + ' (SELECT COUNT(DISTINCT(m2.id)) FROM milestones m2 '
+  + ' INNER JOIN tasks t ON m2.id = t.milestone_id AND t.completed_on IS NULL'
+  + ' WHERE DATE(m2.created_at) BETWEEN \'' + startDate
+  + '\' AND \'' + endDate + '\''
+  + ')) AS count '
   + ' FROM milestones m '
   + ' WHERE DATE(m.created_at) BETWEEN \'' + startDate
   + '\' AND \'' + endDate + '\''
