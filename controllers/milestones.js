@@ -131,15 +131,25 @@ exports.getTimeTakenData = function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
 
-  const dummyData = {
-    data: [
-      { milestoneName:'test1', time_taken:'259200' },
-      { milestoneName:'test1', time_taken:'172800' },
-      { milestoneName:'test2', time_taken:'195745' },
-      { milestoneName:'test3', time_taken:'225856' },
-    ]
-  }
-  res.send(dummyData);
+  const query =
+  'SELECT m.content as milestone_name, m.id as milestone_id'
+  + ', SUM(TIMESTAMPDIFF(SECOND, t.created_at, t.completed_on)) as time_taken'
+  + ' FROM milestones m '
+  + ' INNER JOIN tasks t ON m.id = t.milestone_id AND t.completed_on IS NOT NULL'
+  + ' WHERE m.id = t.milestone_id'
+  + ' AND DATE(t.created_at) BETWEEN \'' + startDate
+  + '\' AND \'' + endDate + '\''
+  + ' GROUP BY m.id';
+
+  sequelize.query(query, selectClause)
+  .then((result) => {
+    res.send({
+      data: result
+    });
+  })
+  .catch(function (err) {
+    res.status(400).send('Error ' + err);
+  });
 }
 
 exports.getRatioDeadlinesMissed = function (req, res) {
