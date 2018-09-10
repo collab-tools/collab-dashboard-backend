@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+const adminController = require('./controllers/admin');
 const authController = require('./controllers/auth');
 const usersController = require('./controllers/users');
 const projectsController = require('./controllers/projects');
@@ -47,6 +48,11 @@ app.route('/login')
 //     res.redirect('/');
 //   });
 
+/******************************
+  Admin Routes
+********************************/
+app.route('/admin/')
+    .post(adminController.createAdmin);
 
 /******************************
   User Routes

@@ -1,11 +1,11 @@
 {
   "database": {
     "username": "root",
-    "password": "12341234"
+    "password": ""
   },
   "logging_database": {
     "username": "root",
-    "password": "12341234"
+    "password": ""
   },
   "authentication": {
     "privateKey": "12341234"
@@ -14,6 +14,6 @@
     "client_secret": ""
   },
   "google": {
-    "client_secret": "uXl3k4jApfY2Qp-7P0rzUDxL"
+    "client_secret": "B8eVUXh3_Z9Na3I9iPCjUB-X"
   }
 }

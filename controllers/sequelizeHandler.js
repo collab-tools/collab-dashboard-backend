@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const selectClause =   {type: Sequelize.QueryTypes.SELECT};
-const sequelize = new Sequelize('collab', 'root', '12341234', {
+const sequelize = new Sequelize('collab', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
 
