@@ -7,13 +7,13 @@
     "username": "root",
     "password": ""
   },
-  "authentication": {
-    "privateKey": "12341234"
-  },
   "github": {
     "client_secret": ""
   },
   "google": {
     "client_secret": "B8eVUXh3_Z9Na3I9iPCjUB-X"
-  }
+  },
+
+  "jwt_secret": "some_secret",
+  "developer_key": "12341234"
 }

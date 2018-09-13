@@ -19,5 +19,5 @@ This project hosts the API endpoints that collab-dashboard-v2 requires.
 ## Create Admin User
 ```bash
 # (Assuming your developer_key is set to 12341234 in config/local-dev.json)
-$ curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'devKey=12341234&username=admin&password=veryverysecretpassword&name=admin&isAdmin=1' "http://localhost:3001/admin"
+$ curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'devKey=12341234&username=admin&password=admin&name=admin&isAdmin=1' "http://localhost:3001/api/admin"
 ```

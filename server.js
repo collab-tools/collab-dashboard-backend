@@ -4,12 +4,12 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const adminController = require('./controllers/admin');
-const authController = require('./controllers/auth');
-const usersController = require('./controllers/users');
-const projectsController = require('./controllers/projects');
-const milestonesController = require('./controllers/milestones');
-const tasksController = require('./controllers/tasks');
+const adminController = require('./routes/admin');
+const authController = require('./routes/auth');
+const usersController = require('./routes/users');
+const projectsController = require('./routes/projects');
+const milestonesController = require('./routes/milestones');
+const tasksController = require('./routes/tasks');
 
 const passport = authController.passport;
 
@@ -29,6 +29,9 @@ app.use(passport.session());
 // // use it before all route definitions
 app.use(cors({origin: 'http://localhost:3000'}));
 
+// TODO: refactor to this routing pattern, previously was too hard coded
+require('./routes')(app, express);
+
 app.get('/', function (req, res) {
   res.send('Dashboard Backend Root')
 })
@@ -47,12 +50,6 @@ app.route('/login')
 //   function(req, res) {
 //     res.redirect('/');
 //   });
-
-/******************************
-  Admin Routes
-********************************/
-app.route('/admin/')
-    .post(adminController.createAdmin);
 
 /******************************
   User Routes
