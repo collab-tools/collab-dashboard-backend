@@ -39,8 +39,8 @@ app.get('/', function (req, res) {
 /******************************
   Auth Routes
 ********************************/
-app.route('/login')
-    .post(authController.localAuthenticated, authController.login);
+// app.route('/login')
+//     .post(authController.localAuthenticated, authController.login);
 
 // app.get('/auth/google',
 //   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile'] }));
@@ -54,112 +54,112 @@ app.route('/login')
 /******************************
   User Routes
 ********************************/
-app.route('/users/count')
+app.route('/api/users/count')
     .post(authController.jwtAuthenticated, usersController.getUsersCount);
 
 
 /*  PARAMS
   startDate: YYYY/MM/DD (e.g 2017/09/03)
   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
-app.route('/users/num-created-between-dates')
+app.route('/api/users/num-created-between-dates')
     .post(usersController.getNumUsersCreatedBetweenDates);
 
 /*  PARAMS
   startDate: YYYY/MM/DD (e.g 2017/09/03)
   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
-app.route('/users/num-updated-between-dates')
+app.route('/api/users/num-updated-between-dates')
     .post(usersController.getNumUsersUpdatedBetweenDates);
 
 /*  PARAMS
   startDate: YYYY/MM/DD (e.g 2017/09/03)
   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
-app.route('/users/num-not-updated-between-dates')
+app.route('/api/users/num-not-updated-between-dates')
     .post(usersController.getTotalMinusNumUsersUpdatedBetweenDates);
 
 /*  PARAMS
   startDate: YYYY/MM/DD (e.g 2017/09/03)
   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
-app.route('/users/retention-rate')
+app.route('/api/users/retention-rate')
     .post(usersController.getUsersRetentionRate);
 
 /*  PARAMS
   maxUsers: INTEGER */
-app.route('/users/latest')
+app.route('/api/users/latest')
     .post(usersController.getLatestUsers);
 
 /*  PARAMS
   userId: STRING */
-app.route('/users/projects')
+app.route('/api/users/projects')
     .post(usersController.getProjects);
 
 /*****************************
   Milestone Routes
 ********************************/
-app.route('/milestones/count')
+app.route('/api/milestones/count')
     .post(milestonesController.getMilestonesCount);
 
-app.route('/milestones/completed-count')
+app.route('/api/milestones/completed-count')
     .post(milestonesController.getCompletedMilestonesCount);
 
-app.route('/milestones/average-milestones-per-project')
+app.route('/api/milestones/average-milestones-per-project')
     .post(milestonesController.getAverageMilestonesPerProject);
 
-app.route('/milestones/average-tasks-per-milestone')
+app.route('/api/milestones/average-tasks-per-milestone')
     .post(milestonesController.getAverageTasksPerMilestone);
 
-app.route('/milestones/time-taken-data')
+app.route('/api/milestones/time-taken-data')
     .post(milestonesController.getTimeTakenData);
 
-app.route('/milestones/ratio-deadlines-missed')
+app.route('/api/milestones/ratio-deadlines-missed')
     .post(milestonesController.getRatioDeadlinesMissed);
 
-app.route('/milestones/feature-utilization')
+app.route('/api/milestones/feature-utilization')
     .post(milestonesController.getFeatureUtilization);
 
 /******************************
   Projects Routes
 ********************************/
-app.route('/projects/count')
+app.route('/api/projects/count')
     .post(projectsController.getProjectsCount);
 
 /*  PARAMS
   startDate: YYYY/MM/DD (e.g 2017/09/03)
   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
-app.route('/projects/num-created-between-dates')
+app.route('/api/projects/num-created-between-dates')
     .post(projectsController.getNumProjectsCreatedBetweenDates);
 
 /*  PARAMS
   maxProjects: INTEGER */
-app.route('/projects/latest')
+app.route('/api/projects/latest')
     .post(projectsController.getLatestProjects);
 
 /*  PARAMS
   startDate: YYYY/MM/DD (e.g 2017/09/03)
   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
-app.route('/projects/active-rate-between-dates')
+app.route('/api/projects/active-rate-between-dates')
     .post(projectsController.getProjectsActiveRateBetweenDates);
 
 /*  PARAMS
   projectId: STRING  */
-app.route('/projects/milestones')
+app.route('/api/projects/milestones')
     .post(projectsController.getMilestones);
 
 /******************************
   Tasks Routes
 ********************************/
-app.route('/tasks/count')
+app.route('/api/tasks/count')
     .post(tasksController.getTasksCount);
 
-app.route('/tasks/count-pending')
+app.route('/api/tasks/count-pending')
     .post(tasksController.getTasksPending);
 
-app.route('/tasks/count-completed')
+app.route('/api/tasks/count-completed')
     .post(tasksController.getTasksCompleted);
 
-app.route('/tasks/complete-time-data')
+app.route('/api/tasks/complete-time-data')
     .post(tasksController.getCompleteTimeData);
 
-app.route('/tasks/feature-utilization')
+app.route('/api/tasks/feature-utilization')
     .post(tasksController.getFeatureUtilization);
 
-app.listen(3001)
+app.listen(5000)
