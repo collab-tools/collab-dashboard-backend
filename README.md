@@ -19,5 +19,61 @@ This project hosts the API endpoints that collab-dashboard-v2 requires.
 ## Create Admin User
 ```bash
 # (Assuming your developer_key is set to 12341234 in config/local-dev.json)
-$ curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'devKey=12341234&username=admin&password=admin&name=admin&isAdmin=1' "http://localhost:3001/api/admin"
+$ curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'devKey=12341234&username=admin&password=admin&name=admin&isAdmin=1' "http://localhost:5000/api/admin"
 ```
+
+
+Listen 9000
+
+<VirtualHost *:9000>
+        ServerName nuscollab.comp.nus.edu.sg
+        DocumentRoot "/home/sadm/NUSCollab/collab-dashboard/public/dist/app"
+
+        ProxyPreserveHost On
+        ProxyRequests Off
+        ProxyPass /api http://localhost:4000/api
+        ProxyPassReverse /api http://localhost:4000/api
+
+        Alias "/assets" "/home/sadm/NUSCollab/collab-dashboard/public/dist/assets"
+        Alias "/libs" "/home/sadm/NUSCollab/collab-dashboard/public/dist/libs"
+
+        RewriteEngine on
+        RewriteRule   ^/app/(.+)$  / [R]
+
+        <Directory /home/sadm/NUSCollab/collab-dashboard/public/dist>
+                Require all granted
+                <IfModule dir_module>
+                        DirectoryIndex index.html index.php app/index.html
+                </IfModule>
+        </Directory>
+</VirtualHost>
+
+
+<VirtualHost *:80>
+        ServerName nuscollab.comp.nus.edu.sg
+        DocumentRoot "/var/www/"
+        ProxyPreserveHost On
+        ProxyRequests Off
+        ProxyPass / http://localhost:8080/
+        ProxyPassReverse / http://localhost:8080/
+
+        RewriteEngine On
+        RewriteCond %{HTTP:X-Forwarded-Protocol} !https
+        RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI}
+</VirtualHost>
+
+http://nuscollab.comp.nus.edu.sg
+
+ssh sadm@nuscollab-i.comp.nus.edu.sg
+dcscristadmcollab
+
+sudo systemctl restart httpd
+
+sudo firewall-cmd --permanent --add-port=8080/tcp
+sudo firewall-cmd --reload
+
+sudo chcon -Rt httpd_sys_content_t public_html/
+
+sudo chmod a+x $HOME
+
+sudo netstat -tnlp

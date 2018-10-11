@@ -1,5 +1,5 @@
 {
-  "database": {
+  "app_database": {
     "username": "root",
     "password": ""
   },
@@ -8,7 +8,8 @@
     "password": ""
   },
   "github": {
-    "client_secret": ""
+    "client_id": "52aac961838700df04b3",
+    "client_secret": "b83827fbe28a620103de1964b75071f09059d99f"
   },
   "google": {
     "client_secret": "B8eVUXh3_Z9Na3I9iPCjUB-X"

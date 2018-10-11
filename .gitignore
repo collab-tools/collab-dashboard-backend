@@ -35,7 +35,13 @@ build/Release
 
 # Dependency directories
 node_modules/
+public/node_modules
 jspm_packages/
+
+# Local configuration files
+config/local-dev.json
+config/local-production.json
+config/google.json
 
 # Typescript v1 declaration files
 typings/
