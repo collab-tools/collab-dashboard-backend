@@ -15,4 +15,4 @@ github.authenticate({
   secret: config.get('github.client_secret')
 });
 
-export default github;
+module.exports = github;

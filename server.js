@@ -1,6 +1,7 @@
 // Packages & Dependencies
 // ====================================================
 const bodyParser = require('body-parser');
+const boom = require("boom");
 const compression = require('compression');
 const config = require('config');
 const cors = require('cors');
@@ -17,6 +18,7 @@ const winstonRotate = require('winston-daily-rotate-file');
 const app = express();
 const isProduction = app.get('env') === 'production';
 const rootApp = isProduction ? `${__dirname}/dist` : `${__dirname}/app`;
+const rootPublic = `${__dirname}/assets/static`;
 const rootLogging = `${__dirname}/logs`;
 
 // eslint-disable-next-line import/no-dynamic-require
@@ -44,10 +46,17 @@ app.use(helmet());
 // middleware to protect against HTTP parameter pollution attacks
 app.use(hpp());
 
+app.use(express.static(rootPublic));
+
+
 // API Routes
 // =====================================================
 // eslint-disable-next-line import/no-dynamic-require
 require(`${rootApp}/routes`)(app, express);
+app.all('*', (req, res) => {
+  res.sendFile(`${rootPublic}/index.html`);
+});
+
 // TODO: Routes needs to be replaced
 // ====================================================
 // const authController = require('./routes/auth');
@@ -55,10 +64,6 @@ require(`${rootApp}/routes`)(app, express);
 // const projectsController = require('./routes/projects');
 // const milestonesController = require('./routes/milestones');
 // const tasksController = require('./routes/tasks');
-
-app.get('/', function (req, res) {
-  res.send('Dashboard Backend Root')
-})
 
 // configure logger to use as default error handler
 const tsFormat = () => (new Date()).toLocaleTimeString();

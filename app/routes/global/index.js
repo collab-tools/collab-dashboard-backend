@@ -1,10 +1,10 @@
-import config from 'config';
-import jwt from 'express-jwt';
-import github from './github';
-import drive from './drive';
-import cloud from './cloud';
-import tasks from './tasks';
-import milestones from './milestones';
+const config = require('config');
+const jwt = require('express-jwt');
+const github = require('./github');
+const drive = require('./drive');
+const cloud = require('./cloud');
+const tasks = require('./tasks');
+const milestones = require('./milestones');
 
 module.exports = function (express) {
   const globalRouter = express.Router();

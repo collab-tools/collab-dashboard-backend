@@ -1,0 +1,1 @@
+export const DEV_KEY = "12341234";
