@@ -14,8 +14,8 @@ var models = new Storage();
 function getRepositories(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -27,14 +27,14 @@ function getRepositories(req, res, next) {
     res.status(200).json(repos);
   };
 
-  return models.app.project.getRepositories(startDate, endDate).then(response).catch(next);
+  return models.app.project.getRepositories(startDate, endDate).then(response)['catch'](next);
 }
 
 function getCommits(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -46,11 +46,11 @@ function getCommits(req, res, next) {
     res.status(200).json(commits);
   };
 
-  return models.log.commit_log.getCommits(startDate, endDate).then(response).catch(next);
+  return models.log.commit_log.getCommits(startDate, endDate).then(response)['catch'](next);
 }
 
 function getCommit(req, res, next) {
-  req.checkParams('commitId', 'commitId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('commitId', 'commitId ' + String(constants.templates.error.missingParam)).notEmpty();
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -60,14 +60,14 @@ function getCommit(req, res, next) {
     res.status(200).json(commit);
   };
 
-  return models.log.commit_log.getCommit(commitId).then(response).catch(next);
+  return models.log.commit_log.getCommit(commitId).then(response)['catch'](next);
 }
 
 function getReleases(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -79,11 +79,11 @@ function getReleases(req, res, next) {
     res.status(200).json(releases);
   };
 
-  return models.log.release_log.getReleases(startDate, endDate).then(response).catch(next);
+  return models.log.release_log.getReleases(startDate, endDate).then(response)['catch'](next);
 }
 
 function getRelease(req, res, next) {
-  req.checkParams('releaseId', 'releaseId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('releaseId', 'releaseId ' + String(constants.templates.error.missingParam)).notEmpty();
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -93,14 +93,14 @@ function getRelease(req, res, next) {
     res.status(200).json(release);
   };
 
-  return models.log.release_log.getRelease(releaseId).then(response).catch(next);
+  return models.log.release_log.getRelease(releaseId).then(response)['catch'](next);
 }
 
 function getParticipatingUsers(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) next(boom.badRequest(errors));
 
@@ -112,14 +112,14 @@ function getParticipatingUsers(req, res, next) {
     res.status(200).json(users);
   };
 
-  return models.log.commit_log.getParticipatingUsers(startDate, endDate).then(response).catch(next);
+  return models.log.commit_log.getParticipatingUsers(startDate, endDate).then(response)['catch'](next);
 }
 
 function getParticipatingProjects(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) next(boom.badRequest(errors));
 
@@ -131,7 +131,7 @@ function getParticipatingProjects(req, res, next) {
     res.status(200).json(users);
   };
 
-  return models.log.commit_log.getParticipatingProjects(startDate, endDate).then(response).catch(next);
+  return models.log.commit_log.getParticipatingProjects(startDate, endDate).then(response)['catch'](next);
 }
 
 function downloadAssets(req, res, next) {
@@ -151,8 +151,8 @@ function downloadAssets(req, res, next) {
     _.forEach(release.assets, function (asset) {
       assets.push({
         fileName: asset,
-        directory: release.owner + '-' + release.repo + '-' + release.tagName,
-        url: 'https://github.com/' + release.owner + '/' + release.repo + '/releases/download/' + release.tagName + '/' + asset
+        directory: String(release.owner) + '-' + String(release.repo) + '-' + String(release.tagName),
+        url: 'https://github.com/' + String(release.owner) + '/' + String(release.repo) + '/releases/download/' + String(release.tagName) + '/' + String(asset)
       });
     });
   });
@@ -163,7 +163,7 @@ function downloadAssets(req, res, next) {
     // download files
     archive.pipe(res);
     _.forEach(assets, function (asset, index) {
-      archive.append(payload[index], { name: asset.directory + '/' + asset.fileName });
+      archive.append(payload[index], { name: String(asset.directory) + '/' + String(asset.fileName) });
     });
     archive.finalize();
   });

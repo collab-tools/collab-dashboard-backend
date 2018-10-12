@@ -9,7 +9,7 @@ var Storage = require('../../common/storage-helper');
 var models = new Storage();
 
 function getUser(req, res, next) {
-  req.checkParams('userId', 'userId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('userId', 'userId ' + String(constants.templates.error.missingParam)).notEmpty();
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -20,14 +20,14 @@ function getUser(req, res, next) {
     res.status(200).json(_.head(user));
   };
 
-  return models.app.user.getUserWithProjects(userId).then(response).catch(next);
+  return models.app.user.getUserWithProjects(userId).then(response)['catch'](next);
 }
 
 function getUsers(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -39,11 +39,11 @@ function getUsers(req, res, next) {
     res.status(200).json(users);
   };
 
-  return models.app.user.getUsersWithProjects(startDate, endDate).then(response).catch(next);
+  return models.app.user.getUsersWithProjects(startDate, endDate).then(response)['catch'](next);
 }
 
 function getUserProjects(req, res, next) {
-  req.checkParams('userId', 'userId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('userId', 'userId ' + String(constants.templates.error.missingParam)).notEmpty();
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -59,7 +59,7 @@ function getUserProjects(req, res, next) {
     res.status(200).json(projects);
   };
 
-  return models.app.user.getUserById(userId).then(retrieveProjects).then(response).catch(next);
+  return models.app.user.getUserById(userId).then(retrieveProjects).then(response)['catch'](next);
 }
 
 var usersAPI = { getUser: getUser, getUsers: getUsers, getUserProjects: getUserProjects };

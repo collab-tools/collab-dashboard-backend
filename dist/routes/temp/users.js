@@ -15,7 +15,7 @@ exports.getUsersCount = function (req, res) {
     res.send({
       count: count
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -28,7 +28,7 @@ exports.getNumUsersCreatedBetweenDates = function (req, res) {
 
   sequelize.query(datedUsersQuery, selectClause).then(function (users) {
     res.send(users[0]);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -41,7 +41,7 @@ exports.getNumUsersUpdatedBetweenDates = function (req, res) {
 
   sequelize.query(datedUsersQuery, selectClause).then(function (users) {
     res.send(users[0]);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -54,7 +54,7 @@ exports.getTotalMinusNumUsersUpdatedBetweenDates = function (req, res) {
 
   sequelize.query(datedUsersQuery, selectClause).then(function (users) {
     res.send(users[0]);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -75,7 +75,7 @@ exports.getUsersRetentionRate = function (req, res) {
         rate: rate
       });
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -88,7 +88,7 @@ exports.getLatestUsers = function (req, res) {
 
   sequelize.query(datedUsersQuery, selectClause).then(function (datedUsers) {
     res.send(datedUsers);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -105,7 +105,7 @@ exports.getProjects = function (req, res) {
 
   sequelize.query(query, selectClause).then(function (result) {
     res.send(result);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };

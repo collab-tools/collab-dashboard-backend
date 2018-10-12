@@ -14,7 +14,7 @@ exports.getMilestonesCount = function (req, res) {
     res.send({
       count: count
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -31,7 +31,7 @@ exports.getCompletedMilestonesCount = function (req, res) {
     res.send({
       count: count
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -56,7 +56,7 @@ exports.getAverageMilestonesPerProject = function (req, res) {
         result: milestonesPerProject
       });
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -81,7 +81,7 @@ exports.getAverageTasksPerMilestone = function (req, res) {
         result: tasksPerMilestone
       });
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -96,7 +96,7 @@ exports.getTimeTakenData = function (req, res) {
     res.send({
       data: result
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -121,7 +121,7 @@ exports.getRatioDeadlinesMissed = function (req, res) {
         result: ratio
       });
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -147,7 +147,7 @@ exports.getFeatureUtilization = function (req, res) {
         result: featureRatio
       });
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };

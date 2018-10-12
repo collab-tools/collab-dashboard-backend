@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 var config = require('config');
 var GitHub = require('github');
 var Promise = require('bluebird');
@@ -20,4 +17,4 @@ github.authenticate({
   secret: config.get('github.client_secret')
 });
 
-exports.default = github;
+module.exports = github;

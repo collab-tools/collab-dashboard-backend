@@ -10,7 +10,7 @@ exports.getProjectsCount = function (req, res) {
   var query = 'SELECT COUNT(*) as count FROM projects' + ' WHERE DATE(created_at) BETWEEN \'' + startDate + '\' AND \'' + endDate + '\'' + ';';
   sequelize.query(query, selectClause).then(function (result) {
     res.send(result[0]);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -23,7 +23,7 @@ exports.getNumProjectsCreatedBetweenDates = function (req, res) {
 
   sequelize.query(datedProjectsQuery, selectClause).then(function (projects) {
     res.send(projects[0]);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -36,7 +36,7 @@ exports.getLatestProjects = function (req, res) {
 
   sequelize.query(query, selectClause).then(function (result) {
     res.send(result);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -56,7 +56,7 @@ exports.getProjectsActiveRateBetweenDates = function (req, res) {
       var rate = activeCount / totalCount;
       res.send({ "rate": rate });
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -68,7 +68,7 @@ exports.getMilestones = function (req, res) {
 
   sequelize.query(query, selectClause).then(function (result) {
     res.send(result);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };

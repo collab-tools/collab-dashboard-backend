@@ -10,14 +10,18 @@ var config = require('config');
 
 var storageInstance = null;
 
-module.exports = function storageHelper() {
-  _classCallCheck(this, storageHelper);
+module.exports = function () {
+  function storageHelper() {
+    _classCallCheck(this, storageHelper);
 
-  if (!storageInstance) {
-    storageInstance = {
-      app: dbAppFactory(config.get('app_database')),
-      log: dbLogFactory(config.get('logging_database'))
-    };
+    if (!storageInstance) {
+      storageInstance = {
+        app: dbAppFactory(config.get('app_database')),
+        log: dbLogFactory(config.get('logging_database'))
+      };
+    }
+    return storageInstance;
   }
-  return storageInstance;
-};
+
+  return storageHelper;
+}();

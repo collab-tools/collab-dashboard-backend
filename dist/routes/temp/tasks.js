@@ -10,7 +10,7 @@ exports.getTasksCount = function (req, res) {
   var query = 'SELECT COUNT(*) as count FROM tasks' + ' WHERE DATE(created_at) BETWEEN \'' + startDate + '\' AND \'' + endDate + '\'' + ';';
   sequelize.query(query, selectClause).then(function (result) {
     res.send(result[0]);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -21,7 +21,7 @@ exports.getTasksPending = function (req, res) {
   var query = 'SELECT COUNT(*) as count FROM tasks' + ' WHERE DATE(created_at) BETWEEN \'' + startDate + '\' AND \'' + endDate + '\'' + ' AND completed_on IS NULL' + ';';
   sequelize.query(query, selectClause).then(function (result) {
     res.send(result[0]);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -32,7 +32,7 @@ exports.getTasksCompleted = function (req, res) {
   var query = 'SELECT COUNT(*) as count FROM tasks' + ' WHERE DATE(created_at) BETWEEN \'' + startDate + '\' AND \'' + endDate + '\'' + ' AND completed_on IS NOT NULL' + ';';
   sequelize.query(query, selectClause).then(function (result) {
     res.send(result[0]);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -47,7 +47,7 @@ exports.getCompleteTimeData = function (req, res) {
     res.send({
       data: result
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };
@@ -69,7 +69,7 @@ exports.getFeatureUtilization = function (req, res) {
         result: ratio
       });
     });
-  }).catch(function (err) {
+  })['catch'](function (err) {
     res.status(400).send('Error ' + err);
   });
 };

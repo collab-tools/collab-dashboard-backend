@@ -11,8 +11,8 @@ var models = new Storage();
 function getTasks(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -24,11 +24,11 @@ function getTasks(req, res, next) {
     res.status(200).json(tasks);
   };
 
-  return models.app.task.getTasks(startDate, endDate).then(response).catch(next);
+  return models.app.task.getTasks(startDate, endDate).then(response)['catch'](next);
 }
 
 function getTask(req, res, next) {
-  req.checkParams('taskId', 'taskId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('taskId', 'taskId ' + String(constants.templates.error.missingParam)).notEmpty();
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -39,14 +39,14 @@ function getTask(req, res, next) {
     res.status(200).json(task);
   };
 
-  return models.app.task.getTask(taskId).then(response).catch(next);
+  return models.app.task.getTask(taskId).then(response)['catch'](next);
 }
 
 function getActivities(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) next(boom.badRequest(errors));
 
@@ -58,15 +58,15 @@ function getActivities(req, res, next) {
     res.status(200).json(activities);
   };
 
-  return models.log.task_log.getActivities(startDate, endDate).then(response).catch(next);
+  return models.log.task_log.getActivities(startDate, endDate).then(response)['catch'](next);
 }
 
 function getTaskActivities(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkParams('taskId', 'taskId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkParams('taskId', 'taskId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) next(boom.badRequest(errors));
 
@@ -79,14 +79,14 @@ function getTaskActivities(req, res, next) {
     res.status(200).json(activities);
   };
 
-  return models.log.task_log.getTaskActivities(null, taskId, startDate, endDate).then(response).catch(next);
+  return models.log.task_log.getTaskActivities(null, taskId, startDate, endDate).then(response)['catch'](next);
 }
 
 function getParticipatingUsers(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) next(boom.badRequest(errors));
 
@@ -98,14 +98,14 @@ function getParticipatingUsers(req, res, next) {
     res.status(200).json(users);
   };
 
-  return models.log.task_log.getParticipatingUsers(startDate, endDate).then(response).catch(next);
+  return models.log.task_log.getParticipatingUsers(startDate, endDate).then(response)['catch'](next);
 }
 
 function getParticipatingProjects(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) next(boom.badRequest(errors));
 
@@ -117,7 +117,7 @@ function getParticipatingProjects(req, res, next) {
     res.status(200).json(users);
   };
 
-  return models.log.task_log.getParticipatingProjects(startDate, endDate).then(response).catch(next);
+  return models.log.task_log.getParticipatingProjects(startDate, endDate).then(response)['catch'](next);
 }
 
 var tasksAPI = {

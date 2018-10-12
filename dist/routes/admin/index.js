@@ -42,7 +42,7 @@ function authenticate(req, res, next) {
     res.status(200).json({ success: true, token: token, settings: user.settings, isAdmin: user.isAdmin, username: user.username });
   };
 
-  return models.log.admin.findOne({ where: searchParameter }).then(authenticateUser).catch(next);
+  return models.log.admin.findOne({ where: searchParameter }).then(authenticateUser)['catch'](next);
 }
 
 function createAdmin(req, res, next) {
@@ -66,7 +66,7 @@ function createAdmin(req, res, next) {
       staff.password = null;
       res.status(200).json({ staff: staff });
     };
-    return models.log.admin.addUser(payload).then(response).catch(next);
+    return models.log.admin.addUser(payload).then(response)['catch'](next);
   }
 
   return next(boom.unauthorized(constants.templates.error.unauthorized));
@@ -102,7 +102,7 @@ function updateAdmin(req, res, next) {
       settings: settings
     };
 
-    return models.log.admin.updateUser(adminUpdate).then(response).catch(next);
+    return models.log.admin.updateUser(adminUpdate).then(response)['catch'](next);
   }
 
   return next(boom.unauthorized(constants.templates.error.unauthorized));
@@ -137,7 +137,7 @@ function getAll(req, res, next) {
     res.status(200).json({ success: success });
   };
 
-  return models.log.admin.getAll().then(response).catch(next);
+  return models.log.admin.getAll().then(response)['catch'](next);
 }
 
 function getOne(req, res, next) {
@@ -155,7 +155,7 @@ function getOne(req, res, next) {
       res.status(200).json(staff);
     };
 
-    return models.log.admin.findById(id).then(response).catch(next);
+    return models.log.admin.findById(id).then(response)['catch'](next);
   }
 
   return next(boom.unauthorized(constants.templates.error.unauthorized));

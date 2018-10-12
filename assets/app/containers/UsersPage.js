@@ -113,6 +113,7 @@ export class UsersPage extends Component {
   render() {
     let users = this.props.users;
     let latestUsers = users.latestUsers;
+    console.log(latestUsers);
     let projectsByUserId = users.projectsByUserId;
     let metricsData = [{
       metric: users.newUsers,

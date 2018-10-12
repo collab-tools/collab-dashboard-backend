@@ -6,9 +6,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.compiled.js",
     "compile": "babel -d dist/ app/ && babel server.js -o server.compiled.js",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress --colors",
-    "dev": "cross-env NODE_ENV=dev nodemon server.js -L --watch server.js --watch app --watch config --exec babel-node",
-    "devTest": "concurrently --raw --kill-others \"webpack --progress --color --watch \" \"cross-env NODE_ENV=dev nodemon server/server.js\"",
+    "buildClient": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress --colors",
+    "dev": "concurrently --raw --kill-others \"webpack --progress --color \" \"cross-env NODE_ENV=dev nodemon server/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

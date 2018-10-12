@@ -9,7 +9,7 @@ var Storage = require('../../common/storage-helper');
 var models = new Storage();
 
 function getUserRepos(req, res, next) {
-  req.checkParams('userId', 'userId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('userId', 'userId ' + String(constants.templates.error.missingParam)).notEmpty();
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -27,15 +27,15 @@ function getUserRepos(req, res, next) {
     res.status(200).json(repos);
   };
 
-  return models.app.user.getUserProjects(userId).then(retrieveRepos).then(response).catch(next);
+  return models.app.user.getUserProjects(userId).then(retrieveRepos).then(response)['catch'](next);
 }
 
 function getUserCommits(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkParams('userId', 'userId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkParams('userId', 'userId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -53,15 +53,15 @@ function getUserCommits(req, res, next) {
     res.status(200).json(commmits);
   };
 
-  return models.app.user.getUserById(userId).then(retrieveCommits).then(response).catch(next);
+  return models.app.user.getUserById(userId).then(retrieveCommits).then(response)['catch'](next);
 }
 
 function getUserReleases(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkParams('userId', 'userId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkParams('userId', 'userId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -83,12 +83,12 @@ function getUserReleases(req, res, next) {
     res.status(200).json(releases);
   };
 
-  return models.app.user.getUserProjects(userId).then(retrieveReleases).then(response).catch(next);
+  return models.app.user.getUserProjects(userId).then(retrieveReleases).then(response)['catch'](next);
 }
 
 function getProjectRepo(req, res, next) {
-  req.checkParams('userId', 'userId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkParams('projectId', 'projectId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('userId', 'userId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkParams('projectId', 'projectId ' + String(constants.templates.error.missingParam)).notEmpty();
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -104,16 +104,16 @@ function getProjectRepo(req, res, next) {
     res.status(200).json(repo);
   };
 
-  return models.app.project.findProjectById(projectId).then(retrieveRepo).then(response).catch(next);
+  return models.app.project.findProjectById(projectId).then(retrieveRepo).then(response)['catch'](next);
 }
 
 function getProjectCommits(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkParams('userId', 'userId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkParams('projectId', 'projectId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkParams('userId', 'userId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkParams('projectId', 'projectId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -132,16 +132,16 @@ function getProjectCommits(req, res, next) {
     res.status(200).json(commits);
   };
 
-  return models.app.user.getUserById(userId).then(retrieveCommits).then(response).catch(next);
+  return models.app.user.getUserById(userId).then(retrieveCommits).then(response)['catch'](next);
 }
 
 function getProjectReleases(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkParams('userId', 'userId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkParams('projectId', 'projectId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkParams('userId', 'userId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkParams('projectId', 'projectId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -154,7 +154,7 @@ function getProjectReleases(req, res, next) {
     res.status(200).json(releases);
   };
 
-  return models.log.release_log.getProjectReleases(projectId, startDate, endDate).then(response).catch(next);
+  return models.log.release_log.getProjectReleases(projectId, startDate, endDate).then(response)['catch'](next);
 }
 
 var githubAPI = {

@@ -12,11 +12,11 @@ function getMilestones(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
   if (req.query.elapsed) {
-    req.checkQuery('elapsed', 'elapsed ' + constants.templates.error.invalidData).isBoolean();
+    req.checkQuery('elapsed', 'elapsed ' + String(constants.templates.error.invalidData)).isBoolean();
   }
-  req.checkParams('projectId', 'projectId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkParams('projectId', 'projectId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -35,15 +35,15 @@ function getMilestones(req, res, next) {
     res.status(200).json(milestones);
   };
 
-  return evalQuery().then(response).catch(next);
+  return evalQuery().then(response)['catch'](next);
 }
 
 function getActivities(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkParams('projectId', 'projectId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkParams('projectId', 'projectId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -58,15 +58,15 @@ function getActivities(req, res, next) {
     res.status(200).json(milestonesActivities);
   };
 
-  return models.log.milestone_log.getProjectActivities(projectId, startDate, endDate).then(response).catch(next);
+  return models.log.milestone_log.getProjectActivities(projectId, startDate, endDate).then(response)['catch'](next);
 }
 
 function getTasksByMilestones(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkParams('projectId', 'projectId ' + constants.templates.error.missingParam).notEmpty();
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkParams('projectId', 'projectId ' + String(constants.templates.error.missingParam)).notEmpty();
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) next(boom.badRequest(errors));
 
@@ -84,7 +84,7 @@ function getTasksByMilestones(req, res, next) {
     res.status(200).json(groupedTasks);
   };
 
-  return models.app.task.getTasksByProject(projectId, startDate, endDate).then(groupByMilestone).then(response).catch(next);
+  return models.app.task.getTasksByProject(projectId, startDate, endDate).then(groupByMilestone).then(response)['catch'](next);
 }
 
 var milestonesAPI = { getMilestones: getMilestones, getActivities: getActivities, getTasksByMilestones: getTasksByMilestones };

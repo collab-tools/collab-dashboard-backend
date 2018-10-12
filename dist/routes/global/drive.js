@@ -11,8 +11,8 @@ var models = new Storage();
 function getFiles(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -24,11 +24,11 @@ function getFiles(req, res, next) {
     res.status(200).json(files);
   };
 
-  return models.log.file_log.getFiles(null, null, startDate, endDate).then(response).catch(next);
+  return models.log.file_log.getFiles(null, null, startDate, endDate).then(response)['catch'](next);
 }
 
 function getFile(req, res, next) {
-  req.checkParams('fileId', 'fileId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('fileId', 'fileId ' + String(constants.templates.error.missingParam)).notEmpty();
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -38,14 +38,14 @@ function getFile(req, res, next) {
     res.status(200).json(file);
   };
 
-  return models.log.file_log.getFile(fileId).then(response).catch(next);
+  return models.log.file_log.getFile(fileId).then(response)['catch'](next);
 }
 
 function getChanges(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -57,15 +57,15 @@ function getChanges(req, res, next) {
     res.status(200).json(changes);
   };
 
-  return models.log.file_log.getChanges(startDate, endDate).then(response).catch(next);
+  return models.log.file_log.getChanges(startDate, endDate).then(response)['catch'](next);
 }
 
 function getFileChanges(req, res, next) {
-  req.checkParams('fileId', 'fileId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('fileId', 'fileId ' + String(constants.templates.error.missingParam)).notEmpty();
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -78,14 +78,14 @@ function getFileChanges(req, res, next) {
     res.status(200).json(changes);
   };
 
-  return models.log.file_log.getFileChanges(fileId, startDate, endDate).then(response).catch(next);
+  return models.log.file_log.getFileChanges(fileId, startDate, endDate).then(response)['catch'](next);
 }
 
 function getActivities(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -97,15 +97,15 @@ function getActivities(req, res, next) {
     res.status(200).json(activities);
   };
 
-  return models.log.file_log.getActivities(startDate, endDate).then(response).catch(next);
+  return models.log.file_log.getActivities(startDate, endDate).then(response)['catch'](next);
 }
 
 function getFileActivities(req, res, next) {
-  req.checkParams('fileId', 'fileId ' + constants.templates.error.missingParam).notEmpty();
+  req.checkParams('fileId', 'fileId ' + String(constants.templates.error.missingParam)).notEmpty();
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) return next(boom.badRequest(errors));
 
@@ -118,14 +118,14 @@ function getFileActivities(req, res, next) {
     res.status(200).json(activities);
   };
 
-  return models.log.file_log.getFileActivities(fileId, startDate, endDate).then(response).catch(next);
+  return models.log.file_log.getFileActivities(fileId, startDate, endDate).then(response)['catch'](next);
 }
 
 function getParticipatingUsers(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) next(boom.badRequest(errors));
 
@@ -137,14 +137,14 @@ function getParticipatingUsers(req, res, next) {
     res.status(200).json(users);
   };
 
-  return models.log.file_log.getParticipatingUsers(startDate, endDate).then(response).catch(next);
+  return models.log.file_log.getParticipatingUsers(startDate, endDate).then(response)['catch'](next);
 }
 
 function getParticipatingProjects(req, res, next) {
   req.query.start = parseInt(req.query.start, 10) || constants.defaults.startDate;
   req.query.end = parseInt(req.query.end, 10) || constants.defaults.endDate;
-  req.checkQuery('start', 'start ' + constants.templates.error.invalidData).isInt({ min: 0 });
-  req.checkQuery('end', 'end ' + constants.templates.error.invalidData).isInt({ min: 0 });
+  req.checkQuery('start', 'start ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
+  req.checkQuery('end', 'end ' + String(constants.templates.error.invalidData)).isInt({ min: 0 });
   var errors = req.validationErrors();
   if (errors) next(boom.badRequest(errors));
 
@@ -156,7 +156,7 @@ function getParticipatingProjects(req, res, next) {
     res.status(200).json(users);
   };
 
-  return models.log.file_log.getParticipatingProjects(startDate, endDate).then(response).catch(next);
+  return models.log.file_log.getParticipatingProjects(startDate, endDate).then(response)['catch'](next);
 }
 
 var driveAPI = {

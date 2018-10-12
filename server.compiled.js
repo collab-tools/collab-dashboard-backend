@@ -3,6 +3,7 @@
 // Packages & Dependencies
 // ====================================================
 var bodyParser = require('body-parser');
+var boom = require("boom");
 var compression = require('compression');
 var config = require('config');
 var cors = require('cors');
@@ -18,8 +19,9 @@ var winstonRotate = require('winston-daily-rotate-file');
 // =====================================================
 var app = express();
 var isProduction = app.get('env') === 'production';
-var rootApp = isProduction ? __dirname + '/dist' : __dirname + '/app';
-var rootLogging = __dirname + '/logs';
+var rootApp = isProduction ? String(__dirname) + '/dist' : String(__dirname) + '/app';
+var rootPublic = String(__dirname) + '/assets/static';
+var rootLogging = String(__dirname) + '/logs';
 
 // eslint-disable-next-line import/no-dynamic-require
 require(rootApp + '/common/mixins')();
@@ -46,10 +48,16 @@ app.use(helmet());
 // middleware to protect against HTTP parameter pollution attacks
 app.use(hpp());
 
+app.use(express['static'](rootPublic));
+
 // API Routes
 // =====================================================
 // eslint-disable-next-line import/no-dynamic-require
 require(rootApp + '/routes')(app, express);
+app.all('*', function (req, res) {
+  res.sendFile(rootPublic + '/index.html');
+});
+
 // TODO: Routes needs to be replaced
 // ====================================================
 // const authController = require('./routes/auth');
@@ -57,10 +65,6 @@ require(rootApp + '/routes')(app, express);
 // const projectsController = require('./routes/projects');
 // const milestonesController = require('./routes/milestones');
 // const tasksController = require('./routes/tasks');
-
-app.get('/', function (req, res) {
-  res.send('Dashboard Backend Root');
-});
 
 // configure logger to use as default error handler
 var tsFormat = function tsFormat() {
@@ -101,7 +105,7 @@ winston.info('Debugging tool initialized.');
 var ERROR_BAD_REQUEST = 'Unable to serve your content. Check your arguments.';
 var logErrors = function logErrors(err, req, res, next) {
   if (err.isBoom) {
-    winston.debug('Status Code: ' + err.output.statusCode + ' | ' + err.stack, err.data);
+    winston.debug('Status Code: ' + String(err.output.statusCode) + ' | ' + String(err.stack), err.data);
     next(err);
   } else {
     winston.error(err);

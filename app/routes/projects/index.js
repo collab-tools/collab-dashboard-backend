@@ -7,7 +7,7 @@ const tasks = require('./tasks');
 const milestones = require('./milestones');
 const projects = require('./projects');
 
-module.exports = function (express) {
+module.exports = function(express) {
   const projectsRouter = express.Router();
   const auth = jwt({
     secret: config.jwt_secret,

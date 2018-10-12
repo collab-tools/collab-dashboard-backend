@@ -1,39 +1,17 @@
 'use strict';
 
-var _config = require('config');
-
-var _config2 = _interopRequireDefault(_config);
-
-var _expressJwt = require('express-jwt');
-
-var _expressJwt2 = _interopRequireDefault(_expressJwt);
-
-var _github = require('./github');
-
-var _github2 = _interopRequireDefault(_github);
-
-var _drive = require('./drive');
-
-var _drive2 = _interopRequireDefault(_drive);
-
-var _cloud = require('./cloud');
-
-var _cloud2 = _interopRequireDefault(_cloud);
-
-var _tasks = require('./tasks');
-
-var _tasks2 = _interopRequireDefault(_tasks);
-
-var _milestones = require('./milestones');
-
-var _milestones2 = _interopRequireDefault(_milestones);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var config = require('config');
+var jwt = require('express-jwt');
+var github = require('./github');
+var drive = require('./drive');
+var cloud = require('./cloud');
+var tasks = require('./tasks');
+var milestones = require('./milestones');
 
 module.exports = function (express) {
   var globalRouter = express.Router();
-  var auth = (0, _expressJwt2.default)({
-    secret: _config2.default.jwt_secret,
+  var auth = jwt({
+    secret: config.jwt_secret,
     userProperty: 'auth'
   });
 
@@ -41,48 +19,48 @@ module.exports = function (express) {
 
   // GitHub Related
   // =========================================================
-  globalRouter.get('/github/repos', _github2.default.getRepositories);
-  globalRouter.get('/github/commits', _github2.default.getCommits);
-  globalRouter.get('/github/commits/:commitId', _github2.default.getCommit);
-  globalRouter.get('/github/releases', _github2.default.getReleases);
-  globalRouter.get('/github/releases/:releaseId', _github2.default.getRelease);
-  globalRouter.get('/github/users', _github2.default.getParticipatingUsers);
-  globalRouter.get('/github/projects', _github2.default.getParticipatingProjects);
-  globalRouter.get('/github/assets', _github2.default.downloadAssets);
+  globalRouter.get('/github/repos', github.getRepositories);
+  globalRouter.get('/github/commits', github.getCommits);
+  globalRouter.get('/github/commits/:commitId', github.getCommit);
+  globalRouter.get('/github/releases', github.getReleases);
+  globalRouter.get('/github/releases/:releaseId', github.getRelease);
+  globalRouter.get('/github/users', github.getParticipatingUsers);
+  globalRouter.get('/github/projects', github.getParticipatingProjects);
+  globalRouter.get('/github/assets', github.downloadAssets);
 
   // Google Drive Related
   // =========================================================
-  globalRouter.get('/drive/files', _drive2.default.getFiles);
-  globalRouter.get('/drive/files/changes', _drive2.default.getChanges);
-  globalRouter.get('/drive/files/activities', _drive2.default.getActivities);
-  globalRouter.get('/drive/files/:fileId', _drive2.default.getFile);
-  globalRouter.get('/drive/files/:fileId/changes', _drive2.default.getFileChanges);
-  globalRouter.get('/drive/files/:fileId/activities', _drive2.default.getFileActivities);
-  globalRouter.get('/drive/users', _drive2.default.getParticipatingUsers);
-  globalRouter.get('/drive/projects', _drive2.default.getParticipatingProjects);
+  globalRouter.get('/drive/files', drive.getFiles);
+  globalRouter.get('/drive/files/changes', drive.getChanges);
+  globalRouter.get('/drive/files/activities', drive.getActivities);
+  globalRouter.get('/drive/files/:fileId', drive.getFile);
+  globalRouter.get('/drive/files/:fileId/changes', drive.getFileChanges);
+  globalRouter.get('/drive/files/:fileId/activities', drive.getFileActivities);
+  globalRouter.get('/drive/users', drive.getParticipatingUsers);
+  globalRouter.get('/drive/projects', drive.getParticipatingProjects);
 
   // Tasks Related
   // =========================================================
-  globalRouter.get('/tasks', _tasks2.default.getTasks);
-  globalRouter.get('/tasks/activities', _tasks2.default.getActivities);
-  globalRouter.get('/tasks/users', _tasks2.default.getParticipatingUsers);
-  globalRouter.get('/tasks/projects', _tasks2.default.getParticipatingProjects);
-  globalRouter.get('/tasks/:taskId', _tasks2.default.getTask);
-  globalRouter.get('/tasks/:taskId/activities', _tasks2.default.getTaskActivities);
+  globalRouter.get('/tasks', tasks.getTasks);
+  globalRouter.get('/tasks/activities', tasks.getActivities);
+  globalRouter.get('/tasks/users', tasks.getParticipatingUsers);
+  globalRouter.get('/tasks/projects', tasks.getParticipatingProjects);
+  globalRouter.get('/tasks/:taskId', tasks.getTask);
+  globalRouter.get('/tasks/:taskId/activities', tasks.getTaskActivities);
 
   // Milestones Related
   // =========================================================
-  globalRouter.get('/milestones', _milestones2.default.getMilestones);
-  globalRouter.get('/milestones/activities', _milestones2.default.getActivities);
-  globalRouter.get('/milestones/tasks', _milestones2.default.getTasksByMilestones);
-  globalRouter.get('/milestones/users', _milestones2.default.getParticipatingUsers);
-  globalRouter.get('/milestones/projects', _milestones2.default.getParticipatingProjects);
-  globalRouter.get('/milestones/:milestoneId', _milestones2.default.getMilestone);
-  globalRouter.get('/milestones/:milestoneId/activities', _milestones2.default.getMilestoneActivities);
+  globalRouter.get('/milestones', milestones.getMilestones);
+  globalRouter.get('/milestones/activities', milestones.getActivities);
+  globalRouter.get('/milestones/tasks', milestones.getTasksByMilestones);
+  globalRouter.get('/milestones/users', milestones.getParticipatingUsers);
+  globalRouter.get('/milestones/projects', milestones.getParticipatingProjects);
+  globalRouter.get('/milestones/:milestoneId', milestones.getMilestone);
+  globalRouter.get('/milestones/:milestoneId/activities', milestones.getMilestoneActivities);
 
   // Cloud IDE Related
   // =========================================================
-  globalRouter.get('/cloud/overview', _cloud2.default.getOverview);
+  globalRouter.get('/cloud/overview', cloud.getOverview);
 
   return globalRouter;
 };
