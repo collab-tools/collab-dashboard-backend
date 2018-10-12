@@ -284,7 +284,7 @@ export function getTotalUsers(jwtToken, startDate, endDate) {
           'Content-Type': 'application/json',
         }
       }).then(response => {
-        // console.log('getTotalUsers ', response.data);
+        console.log('getTotalUsers ', response.data);
         dispatch(_getTotalUsers(response.data))
       })
       .catch(error => {
@@ -395,17 +395,15 @@ export function getRetentionRate(startDate, endDate) {
 }
 
 export function getProjectsByUserId(userId) {
-  let url = ROOT_API + '/users/projects';
+  let url = ROOT_API + `/${userId}/projects`;
   console.log('getProjectsByUserId', userId);
   return (dispatch) => {
-    return axios.post(url, {
-        userId: userId
-      }, {
+    return axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
         }
       }).then(response => {
-        // console.log('getProjectsByUserId ', response.data);
+        console.log('getProjectsByUserId ', response.data);
         dispatch(_getProjectsByUserId(response.data))
       })
       .catch(error => {

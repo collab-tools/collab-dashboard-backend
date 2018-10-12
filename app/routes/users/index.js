@@ -6,6 +6,7 @@ const cloud = require('./cloud');
 const tasks = require('./tasks');
 const milestones = require('./milestones');
 const users = require('./users');
+const authController = require('../auth');
 
 module.exports = (express) => {
   const usersRouter = express.Router();
@@ -15,6 +16,14 @@ module.exports = (express) => {
   });
 
   usersRouter.use(auth);
+
+  // New Dashboard API
+  usersRouter.post('/count', authController.jwtAuthenticated, users.getUsersCount);
+  usersRouter.post('/num-created-between-dates', users.getNumUsersCreatedBetweenDates);
+  usersRouter.post('/num-not-updated-between-dates', users.getTotalMinusNumUsersUpdatedBetweenDates);
+  usersRouter.post('/retention-rate', users.getUsersRetentionRate);
+  usersRouter.post('/latest', users.getLatestUsers);
+  
 
   // User Retrieval Related
   // =========================================================

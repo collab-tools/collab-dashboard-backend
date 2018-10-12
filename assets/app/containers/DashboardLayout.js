@@ -65,6 +65,7 @@ export class DashboardLayout extends Component {
   getData(startDate, endDate, maxEntries) {
     // console.log(startDate, endDate, maxEntries);
     let jwtToken = this.props.auth.jwtToken;
+    console.log(jwtToken);
     this.props.getTotalUsers(jwtToken, startDate, endDate);
     this.props.getNewUsers(startDate, endDate);
     this.props.getActiveUsers(startDate, endDate);

@@ -136,110 +136,133 @@ app.use(errorHandler);
 ********************************/
 // app.route('/api/users/count')
 //     .post(authController.jwtAuthenticated, usersController.getUsersCount);
-
+/**DONE**/
 
 // /*  PARAMS
 //   startDate: YYYY/MM/DD (e.g 2017/09/03)
 //   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 // app.route('/api/users/num-created-between-dates')
 //     .post(usersController.getNumUsersCreatedBetweenDates);
+/**DONE**/
 
 // /*  PARAMS
 //   startDate: YYYY/MM/DD (e.g 2017/09/03)
 //   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 // app.route('/api/users/num-updated-between-dates')
 //     .post(usersController.getNumUsersUpdatedBetweenDates);
+/**DONE**/
 
 // /*  PARAMS
 //   startDate: YYYY/MM/DD (e.g 2017/09/03)
 //   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 // app.route('/api/users/num-not-updated-between-dates')
 //     .post(usersController.getTotalMinusNumUsersUpdatedBetweenDates);
+/**DONE**/
 
 // /*  PARAMS
 //   startDate: YYYY/MM/DD (e.g 2017/09/03)
 //   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 // app.route('/api/users/retention-rate')
 //     .post(usersController.getUsersRetentionRate);
+/**DONE**/
 
 // /*  PARAMS
 //   maxUsers: INTEGER */
 // app.route('/api/users/latest')
 //     .post(usersController.getLatestUsers);
+/**DONE**/
 
 // /*  PARAMS
 //   userId: STRING */
 // app.route('/api/users/projects')
 //     .post(usersController.getProjects);
+/**DONE**/
 
 // /*****************************
 //   Milestone Routes
 // ********************************/
 // app.route('/api/milestones/count')
 //     .post(milestonesController.getMilestonesCount);
+/**DONE**/
 
 // app.route('/api/milestones/completed-count')
 //     .post(milestonesController.getCompletedMilestonesCount);
+/**DONE**/
 
 // app.route('/api/milestones/average-milestones-per-project')
 //     .post(milestonesController.getAverageMilestonesPerProject);
+/**DONE**/
 
 // app.route('/api/milestones/average-tasks-per-milestone')
 //     .post(milestonesController.getAverageTasksPerMilestone);
+/**DONE**/
 
 // app.route('/api/milestones/time-taken-data')
 //     .post(milestonesController.getTimeTakenData);
+/**DONE**/
 
 // app.route('/api/milestones/ratio-deadlines-missed')
 //     .post(milestonesController.getRatioDeadlinesMissed);
+/**DONE**/
 
 // app.route('/api/milestones/feature-utilization')
 //     .post(milestonesController.getFeatureUtilization);
+/**DONE**/
 
 // /******************************
 //   Projects Routes
 // ********************************/
 // app.route('/api/projects/count')
 //     .post(projectsController.getProjectsCount);
+/**DONE**/
 
 // /*  PARAMS
 //   startDate: YYYY/MM/DD (e.g 2017/09/03)
 //   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 // app.route('/api/projects/num-created-between-dates')
 //     .post(projectsController.getNumProjectsCreatedBetweenDates);
+/**DONE**/
 
 // /*  PARAMS
 //   maxProjects: INTEGER */
 // app.route('/api/projects/latest')
 //     .post(projectsController.getLatestProjects);
+/**DONE**/
 
 // /*  PARAMS
 //   startDate: YYYY/MM/DD (e.g 2017/09/03)
 //   endDate: YYYY/MM/DD (e.g 2017/09/03)  */
 // app.route('/api/projects/active-rate-between-dates')
 //     .post(projectsController.getProjectsActiveRateBetweenDates);
+/**DONE**/
 
 // /*  PARAMS
 //   projectId: STRING  */
 // app.route('/api/projects/milestones')
 //     .post(projectsController.getMilestones);
+/**DONE**/
 
 // /******************************
 //   Tasks Routes
 // ********************************/
 // app.route('/api/tasks/count')
 //     .post(tasksController.getTasksCount);
+/**DONE**/
 
 // app.route('/api/tasks/count-pending')
 //     .post(tasksController.getTasksPending);
+/**DONE**/
 
 // app.route('/api/tasks/count-completed')
 //     .post(tasksController.getTasksCompleted);
+/**DONE**/
 
 // app.route('/api/tasks/complete-time-data')
 //     .post(tasksController.getCompleteTimeData);
+/**DONE**/
 
 // app.route('/api/tasks/feature-utilization')
 //     .post(tasksController.getFeatureUtilization);
+/**DONE**/
 
 app.listen(config.get('port'));
