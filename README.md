@@ -8,7 +8,8 @@ This project hosts the API endpoints that collab-dashboard-v2 requires.
 
 ## Installation
 1. [Install](https://github.com/collab-tools/collab/wiki/Set-Up-Developer-Environment) the Collab project
-2. Type 'npm install' in the command line
+2. Type 'npm link collab-db-logging collab-db-application' in the command line
+3. Type 'npm install' in the command line
 
 ## Usage
 1. Keep the backend server running by typing 'npm start' in the command line
