@@ -2,7 +2,7 @@
   "port": 4000,
   "app_database": {
     "name": "collab",
-    "username": "",
+    "username": "root",
     "password": "",
     "options": {
       "host": "localhost",
@@ -17,7 +17,7 @@
   },
   "logging_database": {
     "name": "collab_logging",
-    "username": "",
+    "username": "root",
     "password": "",
     "options": {
       "host": "localhost",
