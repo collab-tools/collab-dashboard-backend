@@ -1,6 +1,6 @@
 import adminFactory from "./admin";
 // import analyticsFactory from './analytics';
-// import globalFactory from './global';
+import globalFactory from "./global";
 import projectsFactory from "./projects";
 import usersFactory from "./users";
 import milestonesFactory from "./milestones";
@@ -13,6 +13,7 @@ module.exports = function(app, express) {
   const usersRouter = usersFactory(express);
   const milestonesRouter = milestonesFactory(express);
   const tasksRouter = tasksFactory(express);
+  const globalRouter = globalFactory(express);
 
   // Configure app to load all the routers
   app.use("/api/admin", adminRouter);
@@ -20,4 +21,5 @@ module.exports = function(app, express) {
   app.use("/api/tasks", tasksRouter);
   app.use("/api/projects", projectsRouter);
   app.use("/api/users", usersRouter);
+  app.use("/api/global", globalRouter);
 };
