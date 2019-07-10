@@ -6,7 +6,7 @@ exports.getUsersCount = function(req, res) {
   const endDate = req.body.endDate;
 
   const query = "SELECT COUNT(*) as count FROM users;";
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send(result[0]);
@@ -29,7 +29,7 @@ exports.getNumUsersCreatedBetweenDates = function(req, res) {
     "'" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(datedUsersQuery, selectClause)
     .then(users => {
       res.send(users[0]);
@@ -52,7 +52,7 @@ exports.getNumUsersUpdatedBetweenDates = function(req, res) {
     "'" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(datedUsersQuery, selectClause)
     .then(users => {
       res.send(users[0]);
@@ -75,7 +75,7 @@ exports.getTotalMinusNumUsersUpdatedBetweenDates = function(req, res) {
     "'" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(datedUsersQuery, selectClause)
     .then(users => {
       res.send(users[0]);
@@ -99,10 +99,10 @@ exports.getUsersRetentionRate = function(req, res) {
     "'" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(totalUsersQuery, selectClause)
     .then(total => {
-      sequelize.query(datedUsersQuery, selectClause).then(active => {
+      sequelize.app.query(datedUsersQuery, selectClause).then(active => {
         const totalCount = total[0].count;
         const numActive = active[0].count;
         const rate = numActive / totalCount;
@@ -130,7 +130,7 @@ exports.getLatestUsers = function(req, res) {
     maxUsers +
     ";";
 
-  sequelize
+  sequelize.app
     .query(datedUsersQuery, selectClause)
     .then(datedUsers => {
       res.send(datedUsers);
@@ -163,7 +163,7 @@ exports.getProjects = function(req, res) {
     " GROUP BY p.id" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send(result);

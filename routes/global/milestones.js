@@ -13,7 +13,7 @@ exports.getMilestonesCount = function(req, res) {
     endDate +
     "'" +
     ";";
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       const count = result[0].count;
@@ -48,7 +48,7 @@ exports.getCompletedMilestonesCount = function(req, res) {
     "'" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       const count = result[0].count;
@@ -83,10 +83,10 @@ exports.getAverageMilestonesPerProject = function(req, res) {
     endDate +
     "'" +
     ";";
-  sequelize
+  sequelize.app
     .query(queryMilestones, selectClause)
     .then(resultMilestones => {
-      sequelize.query(queryProjects, selectClause).then(resultProjects => {
+      sequelize.app.query(queryProjects, selectClause).then(resultProjects => {
         const countMilestones = resultMilestones[0].count;
         const countProjects = resultProjects[0].count;
         let milestonesPerProject = countMilestones / countProjects;
@@ -125,10 +125,10 @@ exports.getAverageTasksPerMilestone = function(req, res) {
     endDate +
     "'" +
     ";";
-  sequelize
+  sequelize.app
     .query(queryMilestones, selectClause)
     .then(resultMilestones => {
-      sequelize.query(queryTasks, selectClause).then(resultTasks => {
+      sequelize.app.query(queryTasks, selectClause).then(resultTasks => {
         const countMilestones = resultMilestones[0].count;
         const countTasks = resultTasks[0].count;
         let tasksPerMilestone = countTasks / countMilestones;
@@ -162,7 +162,7 @@ exports.getTimeTakenData = function(req, res) {
     "'" +
     " GROUP BY m.id";
 
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send({
@@ -194,10 +194,10 @@ exports.getRatioDeadlinesMissed = function(req, res) {
     " AND (t.completed_on IS NULL OR t.completed_on > m2.deadline)" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(queryMissedDeadlines, selectClause)
     .then(resultMissedDeadlines => {
-      sequelize.query(queryTotalMilestones, selectClause).then(resultTotalMilestones => {
+      sequelize.app.query(queryTotalMilestones, selectClause).then(resultTotalMilestones => {
         const countMissedDeadlines = resultMissedDeadlines[0].count;
         const countTotalMilestones = resultTotalMilestones[0].count;
         let ratio = countMissedDeadlines / countTotalMilestones;
@@ -237,10 +237,10 @@ exports.getFeatureUtilization = function(req, res) {
     " GROUP BY m.project_id" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(queryTotalProjects, selectClause)
     .then(resultTotalProjects => {
-      sequelize.query(queryMilestones, selectClause).then(resultMilestones => {
+      sequelize.app.query(queryMilestones, selectClause).then(resultMilestones => {
         const countMilestones = resultMilestones.length;
         const countTotalProjects = resultTotalProjects[0].count;
         let featureRatio = countMilestones / countTotalProjects;

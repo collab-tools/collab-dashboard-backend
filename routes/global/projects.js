@@ -12,7 +12,7 @@ exports.getProjectsCount = function(req, res) {
     endDate +
     "'" +
     ";";
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send(result[0]);
@@ -35,7 +35,7 @@ exports.getNumProjectsCreatedBetweenDates = function(req, res) {
     "'" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(datedProjectsQuery, selectClause)
     .then(projects => {
       res.send(projects[0]);
@@ -59,7 +59,7 @@ exports.getLatestProjects = function(req, res) {
     maxProjects +
     ";";
 
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send(result);
@@ -84,10 +84,10 @@ exports.getProjectsActiveRateBetweenDates = function(req, res) {
     "'" +
     ";";
 
-  sequelize
+  sequelize.app
     .query(totalQuery, selectClause)
     .then(resultsTotal => {
-      sequelize.query(activeQuery, selectClause).then(resultsActive => {
+      sequelize.app.query(activeQuery, selectClause).then(resultsActive => {
         let totalCount = resultsTotal[0].count;
         let activeCount = resultsActive[0].count;
         let rate = activeCount / totalCount;
@@ -113,7 +113,7 @@ exports.getMilestones = function(req, res) {
     "'" +
     " GROUP BY m.id";
 
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send(result);

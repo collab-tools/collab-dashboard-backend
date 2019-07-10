@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const selectClause = { type: Sequelize.QueryTypes.SELECT };
-const sequelize = new Sequelize("collab", "root", "", {
+
+const app = new Sequelize("collab", "root", "", {
   host: "localhost",
   dialect: "mysql",
   logging: false,
@@ -12,15 +13,35 @@ const sequelize = new Sequelize("collab", "root", "", {
     idle: 10000
   }
 });
-
-sequelize
+app
   .authenticate()
   .then(function(err) {
-    console.log("Connection has been established successfully.");
+    console.log("App database connection has been established successfully.");
   })
   .catch(function(err) {
     console.log("Unable to connect to the database.");
   });
 
-exports.sequelize = sequelize;
+const log = new Sequelize("collab_logging", "root", "", {
+  host: "localhost",
+  dialect: "mysql",
+  logging: false,
+
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+});
+log
+  .authenticate()
+  .then(function(err) {
+    console.log("Logging database connection has been established successfully.");
+  })
+  .catch(function(err) {
+    console.log("Unable to connect to the database.");
+  });
+
+exports.sequelize = { app, log };
 exports.selectClause = selectClause;

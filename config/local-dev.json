@@ -8,7 +8,8 @@
     "password": ""
   },
   "github": {
-    "client_secret": ""
+    "client_id": "22ef37d433f7ca86bdf3",
+    "client_secret": "2fbe0535991f38ce06684071244132d1cc6d3843"
   },
   "google": {
     "client_secret": "GUt7GPrXlo60fzZYbtnlsFiv"

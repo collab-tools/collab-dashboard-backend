@@ -27,7 +27,6 @@ module.exports = express => {
     "/projects/num-created-between-dates",
     projects.getNumProjectsCreatedBetweenDates
   );
-  globalRouter.post("/projects/latest", projects.getLatestProjects);
   globalRouter.post(
     "/projects/active-rate-between-dates",
     projects.getProjectsActiveRateBetweenDates
@@ -50,8 +49,6 @@ module.exports = express => {
     users.getTotalMinusNumUsersUpdatedBetweenDates
   );
   globalRouter.post("/users/retention-rate", users.getUsersRetentionRate);
-  globalRouter.post("/users/latest", users.getLatestUsers);
-  globalRouter.post("/users/projects", users.getProjects);
 
   return globalRouter;
 };

@@ -12,7 +12,7 @@ exports.getTasksCount = function(req, res) {
     endDate +
     "'" +
     ";";
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send(result[0]);
@@ -34,7 +34,7 @@ exports.getTasksPending = function(req, res) {
     "'" +
     " AND completed_on IS NULL" +
     ";";
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send(result[0]);
@@ -56,7 +56,7 @@ exports.getTasksCompleted = function(req, res) {
     "'" +
     " AND completed_on IS NOT NULL" +
     ";";
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send(result[0]);
@@ -82,7 +82,7 @@ exports.getCompleteTimeData = function(req, res) {
     "'" +
     " GROUP BY t.id";
 
-  sequelize
+  sequelize.app
     .query(query, selectClause)
     .then(result => {
       res.send({
@@ -114,10 +114,10 @@ exports.getFeatureUtilization = function(req, res) {
     endDate +
     "'" +
     ";";
-  sequelize
+  sequelize.app
     .query(queryTasks, selectClause)
     .then(resTasks => {
-      sequelize.query(queryMilestones, selectClause).then(resMilestones => {
+      sequelize.app.query(queryMilestones, selectClause).then(resMilestones => {
         const countTasks = resTasks.length;
         const countMilestones = resMilestones[0].count;
         let ratio = countTasks / countMilestones;
