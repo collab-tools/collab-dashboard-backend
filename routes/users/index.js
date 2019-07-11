@@ -14,26 +14,26 @@ module.exports = express => {
   usersRouter.get("/:id/email", users.getUserEmail);
   usersRouter.get("/:id/displayImage", users.getUserImage);
 
-  usersRouter.get("/:id/projects", users.getUserProjects);
-  usersRouter.get("/:id/projects/count", users.getUserProjectsCount);
+  usersRouter.get("/:id/projects", projects.getUserProjects);
+  usersRouter.get("/:id/projects/count", projects.getUserProjectsCount);
 
-  usersRouter.get("/:id/messages/count", users.getUserMessagesCount);
+  usersRouter.get("/:id/messages/count", messages.getUserMessagesCount);
 
-  usersRouter.get("/:id/tasks", users.getUserProjectsTasks);
-  usersRouter.get("/:id/tasks/count", users.getUserTasksCount);
-  usersRouter.get("/:id/tasks/contributions", users.getUserTasksContributions);
+  usersRouter.get("/:id/tasks", tasks.getUserProjectsTasks);
+  usersRouter.get("/:id/tasks/count", tasks.getUserTasksCount);
+  usersRouter.get("/:id/tasks/contributions", tasks.getUserTasksContributions);
 
-  usersRouter.get("/:id/github/account", users.getUserGithubAccount);
-  usersRouter.get("/:id/github/commits", users.getUserCommits);
-  usersRouter.get("/:id/github/commitsCount", users.getUserCommitsCount);
-  usersRouter.get("/:id/github/linesCount", users.getUserGithubLinesCount);
-  usersRouter.get("/:id/github/contributions/commits", users.getUserCommitsContributions);
-  usersRouter.get("/:id/github/contributions/LOCs", users.getUserLOCsContributions);
+  usersRouter.get("/:id/github/account", github.getUserGithubAccount);
+  usersRouter.get("/:id/github/commits", github.getUserCommits);
+  usersRouter.get("/:id/github/commitsCount", github.getUserCommitsCount);
+  usersRouter.get("/:id/github/linesCount", github.getUserGithubLinesCount);
+  usersRouter.get("/:id/github/contributions/commits", github.getUserCommitsContributions);
+  usersRouter.get("/:id/github/contributions/LOCs", github.getUserLOCsContributions);
 
-  usersRouter.get("/:id/drive/changes", users.getUserFileChanges);
-  usersRouter.get("/:id/drive/changesCount", users.getUserFileChangesCount);
-  usersRouter.get("/:id/drive/filesCount", users.getUserFilesCount);
-  usersRouter.get("/:id/drive/contributions", users.getUserFilesContributions);
+  usersRouter.get("/:id/drive/changes", drive.getUserFileChanges);
+  usersRouter.get("/:id/drive/changesCount", drive.getUserFileChangesCount);
+  usersRouter.get("/:id/drive/filesCount", drive.getUserFilesCount);
+  usersRouter.get("/:id/drive/contributions", drive.getUserFilesContributions);
 
   return usersRouter;
 };

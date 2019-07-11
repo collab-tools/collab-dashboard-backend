@@ -1,12 +1,6 @@
-const fetch = require("node-fetch");
 const sequelize = require("../sequelizeHandler").sequelize;
 const selectClause = require("../sequelizeHandler").selectClause;
 console.log("Users Controller Initialized");
-
-const githubCred = {
-  client_id: "22ef37d433f7ca86bdf3",
-  client_secret: "2fbe0535991f38ce06684071244132d1cc6d3843"
-};
 
 exports.getLatestUsers = function(req, res) {
   let maxUsers = req.body.maxUsers;
