@@ -1,6 +1,12 @@
+const fetch = require("node-fetch");
 const sequelize = require("../sequelizeHandler").sequelize;
 const selectClause = require("../sequelizeHandler").selectClause;
 console.log("Users Controller Initialized");
+
+const githubCred = {
+  client_id: "22ef37d433f7ca86bdf3",
+  client_secret: "2fbe0535991f38ce06684071244132d1cc6d3843"
+};
 
 exports.getLatestUsers = function(req, res) {
   let maxUsers = req.body.maxUsers;
@@ -101,96 +107,6 @@ WHERE u.id = '${id}'`.trim();
     .query(query, selectClause)
     .then(result => {
       res.send(result[0]);
-    })
-    .catch(err => {
-      res.status(400).send("Error " + err);
-    });
-};
-
-exports.getTasksCount = function(req, res) {
-  const id = req.params.id;
-  const projectId = req.query.project;
-  const complete = req.query.complete;
-  let query = `
-SELECT COUNT(t.id) AS count
-FROM tasks t
-WHERE t.assignee_id = '${id}'`.trim();
-  if (projectId) query += ` AND t.project_id = '${projectId}'`;
-  if (complete) query += ` AND t.completed_on IS ${complete === "true" ? "NOT" : ""} NULL`;
-  sequelize.app
-    .query(query, selectClause)
-    .then(result => {
-      res.send(result[0]);
-    })
-    .catch(err => {
-      res.status(400).send("Error " + err);
-    });
-};
-
-exports.getMessagesCount = function(req, res) {
-  const id = req.params.id;
-  const projectId = req.query.project;
-  let query = `
-SELECT COUNT(m.id) AS count
-FROM messages m
-WHERE m.author_id = '${id}'`.trim();
-  if (projectId) query += ` AND m.project_id = '${projectId}'`;
-  sequelize.app
-    .query(query, selectClause)
-    .then(result => {
-      res.send(result[0]);
-    })
-    .catch(err => {
-      res.status(400).send("Error " + err);
-    });
-};
-
-exports.getCommitsCount = function(req, res) {
-  const id = req.params.id;
-  const projectId = req.query.project;
-  const githubQuery = `
-SELECT u.github_login AS account
-FROM users u
-WHERE u.id = '${id}'`.trim();
-
-  sequelize.app
-    .query(githubQuery, selectClause)
-    .then(result1 => result1[0].account)
-    .then(acc => {
-      let query = `
-SELECT COUNT(c.id) AS count
-FROM commit_logs c
-WHERE c.github_login = '${acc}'`.trim();
-      if (projectId) query += ` AND c.project_id = '${projectId}'`;
-      sequelize.log.query(query, selectClause).then(result2 => {
-        res.send(result2[0]);
-      });
-    })
-    .catch(err => {
-      res.status(400).send("Error " + err);
-    });
-};
-
-exports.getFileChangesCount = function(req, res) {
-  const id = req.params.id;
-  const projectId = req.query.project;
-  const emailQuery = `
-SELECT u.email AS email
-FROM users u
-WHERE u.id = '${id}'`.trim();
-  sequelize.app
-    .query(emailQuery, selectClause)
-    .then(result1 => result1[0].email)
-    .then(email => {
-      let query = `
-SELECT COUNT(f.id) AS count
-FROM file_logs f
-WHERE f.email = '${email}'
-AND f.activity = 'U'`.trim();
-      if (projectId) query += ` AND f.project_id = '${projectId}'`;
-      sequelize.log.query(query, selectClause).then(result2 => {
-        res.send(result2[0]);
-      });
     })
     .catch(err => {
       res.status(400).send("Error " + err);

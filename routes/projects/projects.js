@@ -1,4 +1,3 @@
-const fetch = require("node-fetch");
 const sequelize = require("../sequelizeHandler").sequelize;
 const selectClause = require("../sequelizeHandler").selectClause;
 console.log("Projects Controller Initialized");
@@ -31,6 +30,22 @@ exports.getProjectName = function(req, res) {
   const id = req.params.id;
   const query = `
 SELECT p.content AS name
+FROM projects p
+WHERE p.id = '${id}'`.trim();
+  sequelize.app
+    .query(query, selectClause)
+    .then(result => {
+      res.send(result[0]);
+    })
+    .catch(err => {
+      res.status(400).send("Error " + err);
+    });
+};
+
+exports.getProjectDateCreated = function(req, res) {
+  const id = req.params.id;
+  const query = `
+SELECT p.created_at AS date
 FROM projects p
 WHERE p.id = '${id}'`.trim();
   sequelize.app

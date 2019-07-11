@@ -11,6 +11,7 @@ module.exports = function(express) {
   projectsRouter.post("/", projects.getLatestProjects);
   projectsRouter.get("/:id/name", projects.getProjectName);
   projectsRouter.get("/:id/users", projects.getProjectMembers);
+  projectsRouter.get("/:id/dateCreated", projects.getProjectDateCreated);
 
   projectsRouter.get("/:id/messages/count", messages.getProjectMessagesCount);
 
