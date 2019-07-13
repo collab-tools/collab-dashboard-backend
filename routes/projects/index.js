@@ -9,7 +9,7 @@ const drive = require("./drive");
 module.exports = function(express) {
   const projectsRouter = express.Router();
 
-  projectsRouter.post("/", projects.getLatestProjects);
+  projectsRouter.get("/", projects.getLatestProjects);
   projectsRouter.get("/:id/name", projects.getProjectName);
   projectsRouter.get("/:id/users", projects.getProjectMembers);
   projectsRouter.get("/:id/dateCreated", projects.getProjectDateCreated);

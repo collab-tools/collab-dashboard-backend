@@ -3,18 +3,13 @@ const selectClause = require("../sequelizeHandler").selectClause;
 console.log("Users Controller Initialized");
 
 exports.getLatestUsers = function(req, res) {
-  let maxUsers = req.body.maxUsers;
-  if (!maxUsers) maxUsers = 10;
-
   const datedUsersQuery =
     "SELECT u.display_name, u.email, u.github_login, u.created_at, GROUP_CONCAT(content) as user_projects, u.id as user_id " +
     " FROM users u" +
     " JOIN user_projects up ON up.user_id = u.id" +
     " JOIN projects p ON up.project_id = p.id" +
     " GROUP BY u.id" +
-    " ORDER BY DATE(u.created_at) DESC LIMIT " +
-    maxUsers +
-    ";";
+    " ORDER BY DATE(u.created_at) DESC";
 
   sequelize.app
     .query(datedUsersQuery, selectClause)

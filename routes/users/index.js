@@ -9,7 +9,7 @@ const drive = require("./drive");
 module.exports = express => {
   const usersRouter = express.Router();
 
-  usersRouter.post("/", users.getLatestUsers);
+  usersRouter.get("/", users.getLatestUsers);
   usersRouter.post("/projects", users.getProjects);
   usersRouter.get("/:id/name", users.getUserName);
   usersRouter.get("/:id/email", users.getUserEmail);
