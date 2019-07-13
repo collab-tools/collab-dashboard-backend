@@ -1,6 +1,7 @@
 const users = require("./users");
 const projects = require("./projects");
 const messages = require("./messages");
+const activities = require("./activities");
 const tasks = require("./tasks");
 const github = require("./github");
 const drive = require("./drive");
@@ -18,6 +19,8 @@ module.exports = express => {
   usersRouter.get("/:id/projects/count", projects.getUserProjectsCount);
 
   usersRouter.get("/:id/messages/count", messages.getUserMessagesCount);
+
+  usersRouter.get("/:id/activities", activities.getUserActivities);
 
   usersRouter.get("/:id/tasks", tasks.getUserProjectsTasks);
   usersRouter.get("/:id/tasks/count", tasks.getUserTasksCount);
