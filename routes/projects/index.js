@@ -1,5 +1,6 @@
 const projects = require("./projects");
 const messages = require("./messages");
+const activities = require("./activities");
 const milestones = require("./milestones");
 const tasks = require("./tasks");
 const github = require("./github");
@@ -14,6 +15,8 @@ module.exports = function(express) {
   projectsRouter.get("/:id/dateCreated", projects.getProjectDateCreated);
 
   projectsRouter.get("/:id/messages/count", messages.getProjectMessagesCount);
+
+  projectsRouter.get("/:id/activities", activities.getProjectActivities);
 
   projectsRouter.get("/:id/milestones", milestones.getProjectMilestones);
   projectsRouter.get("/:id/milestones/count", milestones.getProjectMilestonesCount);
